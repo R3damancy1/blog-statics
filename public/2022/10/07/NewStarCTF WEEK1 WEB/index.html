@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="P1taya">
+    
+    <title>
+        
+            NewStarCTF WEEK1 WEB |
+        
+        P1taya
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/images/p1taya.jpg">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/brands.min.css">
+    
+        
+            
+                
+<link rel="stylesheet" href="/css/demo1.css">
+
+            
+        
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"P1taya","author":"P1taya","avatar":"/images/p1taya.jpg","logo":"/images/p1taya.jpg","favicon":"/images/p1taya.jpg"},"menu":{"home":"/ || fa-solid fa-home","archives":"/archives || fa-solid fa-box-archive","categories":"/categories || fa-solid fa-layer-group","links":"/links || fa-solid fa-link","about":"/about || fa-solid fa-user-graduate","photos":"/photos || fa-solid fa-image"},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"人后的苦尚且还能克服 || 人前的尊严却无比脆弱","hitokoto":false},"social_contact":{"enable":false,"links":{"github":null,"weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":null}},"scroll":{"progress_bar":false,"percent":false,"hide_header":true},"home":{"announcement":null,"category":true,"tag":true,"post_datetime":"created || fa-solid fa-home","post_datetime_format":"YYYY-MM-DD HH:mm:ss"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":false,"reward":{"enable":false,"img_link":null,"text":null}},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"obsidian"},"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"local_search":{"enable":true,"preload":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.21"},"waline":{"server_url":null,"reaction":false,"version":2},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":false},"lazyload":{"enable":true},"cdn":{"enable":true,"provider":"jsdelivr"},"pjax":{"enable":false},"footer":{"since":2022,"word_count":true},"inject":{"enable":true,"css":["/css/demo1.css"],"js":[null]},"root":"","source_data":{"links":[{"name":"小黄dog","link":"https://wuster.store/","avatar":"https://wuster.store/images/favicon.ico"},{"name":"🐶狗and猫","link":"https://fushuling.com/","avatar":"https://fushuling-1309926051.cos.ap-shanghai.myqcloud.com/avatar.jpg"}]},"version":"4.1.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/p1taya.jpg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               P1taya
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-home"></i>
+                                
+                                首页
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-box-archive"></i>
+                                
+                                归档
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-layer-group"></i>
+                                
+                                分类
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-link"></i>
+                                
+                                友链
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-user-graduate"></i>
+                                
+                                关于
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/photos"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-image"></i>
+                                
+                                相册
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/"
+                    >首页</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives"
+                    >归档</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories"
+                    >分类</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links"
+                    >友链</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about"
+                    >关于</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/photos"
+                    >相册</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        NewStarCTF WEEK1 WEB
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/p1taya.jpg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">P1taya</span>
+                                
+                                    <span class="author-badge">Lv4</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2022-10-07 21:54:12</span>
+            </span>
+
+            <span class="meta-info-item post-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="datetime" data-updated="Wed Apr 17 2024 16:42:59 GMT+0800">2024-04-17 16:42:59</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/%E5%A4%8D%E7%8E%B0/">复现</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>1k 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>4 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body">
+                    
+
+                    <h1 id="1-HTTP"><a href="#1-HTTP" class="headerlink" title="1.HTTP"></a>1.HTTP</h1><p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.jsdelivr.net/gh/R3damancy1/blog-pic/202404161655204.png"
+                        alt="图片-1665405504740"
+                 ></p>
+<p>进入题目发现要get name，我们猜测要用get的提交数据方式传一个值</p>
+<p>get传值公式为</p>
+<p><strong>?+变量名+等于号（&#x3D;）+变量值</strong></p>
+<p>题目中的“name”添加了单引号，猜测变量名为name传入</p>
+<p>?name&#x3D;1</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.jsdelivr.net/gh/R3damancy1/blog-pic/202404161655983.png"
+                        alt="图片-1665405531405"
+                 ></p>
+<p>进入第二关，需要我们post一个key值，但我们不知道key</p>
+<p>F12进入开发者模式，html中藏了key值</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.jsdelivr.net/gh/R3damancy1/blog-pic/202404161655026.png"
+                        alt="图片-1665405550865"
+                 ></p>
+<p>用post传参key&#x3D;ctfisgood（post传参不会显示到url上面，并且并不需要用问号（？）</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.jsdelivr.net/gh/R3damancy1/blog-pic/202404161655803.png"
+                        alt="图片-1665405558353"
+                 ></p>
+<p>用bp传入key&#x3D;ctfisgood后，发现response说我们不是admin，</p>
+<p>我们看到cookie中显示user&#x3D;guest，改为user&#x3D;admin</p>
+<p>得到flag{ed52ca0c-40c7-4c7e-bfd7-d4f2cbbd2435}</p>
+<h1 id="2-Head-Header"><a href="#2-Head-Header" class="headerlink" title="2.Head?Header!"></a>2.Head?Header!</h1><p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.jsdelivr.net/gh/R3damancy1/blog-pic/202404161656086.png"
+                        alt="图片-1665405589688"
+                 ></p>
+<p>这里要我们将浏览器改为CTF，我们用bp抓一个包</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.jsdelivr.net/gh/R3damancy1/blog-pic/202404161656618.png"
+                        alt="图片-1665405599681"
+                 ></p>
+<p>必须要求我们来自‘ctf.com’，这里用到了referer的知识点</p>
+<blockquote>
+<p>Referer  是  HTTP  请求header 的一部分，当浏览器（或者模拟浏览器行为）向web 服务器发送请求的时候，头信息里有包含  Referer  。比如我在<a class="link"   target="_blank" rel="noopener" href="http://www.google.com/" >www.google.com<i class="fas fa-external-link-alt"></i></a> 里有一个<a class="link"   target="_blank" rel="noopener" href="http://www.baidu.com/" >www.baidu.com<i class="fas fa-external-link-alt"></i></a> 链接，那么点击这个<a class="link"   target="_blank" rel="noopener" href="http://www.baidu.com/" >www.baidu.com<i class="fas fa-external-link-alt"></i></a> ，它的header 信息里就有：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Referer=http://www.google.com</span><br></pre></td></tr></table></figure>
+
+<p>由此可以看出来吧。它就是表示一个来源。看下图的一个请求的 Referer  信息。</p>
+</blockquote>
+<p><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/shenqueying/article/details/79426884" >referer知识点<i class="fas fa-external-link-alt"></i></a></p>
+<p>我们加一行</p>
+<p><strong>referer:ctf.com</strong></p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.jsdelivr.net/gh/R3damancy1/blog-pic/202404161656077.png"
+                        alt="图片-1665405614966"
+                 ></p>
+<p>这里提示我们不是local，在php中有很多头能改来源常见的是X-Forward-For</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.jianshu.com/p/15f3498a7fad" >X-Forwarded-For知识点<i class="fas fa-external-link-alt"></i></a></p>
+<p>我们添加一行</p>
+<p><strong>X-Fordward-For:127.0.0.1</strong></p>
+<p>127.0.0.1就是本地地址</p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.jsdelivr.net/gh/R3damancy1/blog-pic/202404161656892.png"
+                        alt="图片-1665405624087"
+                 ></p>
+<p>得到flag{d0637815-c4fc-4aa4-a842-06ebfc22817b}</p>
+<h1 id="3-我真的会谢"><a href="#3-我真的会谢" class="headerlink" title="3.我真的会谢"></a>3.我真的会谢</h1><p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.jsdelivr.net/gh/R3damancy1/blog-pic/202404161657077.png"
+                        alt="图片-1665405631706"
+                 ></p>
+<p>flag放在三个地方，都是敏感文件</p>
+<p>一般常见的有</p>
+<p>robots.txt .index.php.swp <a class="link"   target="_blank" rel="noopener" href="http://www.zip/" >www.zip<i class="fas fa-external-link-alt"></i></a> index.php~ 还有很多可以自行查询</p>
+<p>题目这里是robots.txt .index.php.swp <a class="link"   target="_blank" rel="noopener" href="http://www.zip/" >www.zip<i class="fas fa-external-link-alt"></i></a></p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.jsdelivr.net/gh/R3damancy1/blog-pic/202404161657703.png"
+                        alt="图片-1665405645261"
+                 ></p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.jsdelivr.net/gh/R3damancy1/blog-pic/202404161657351.png"
+                        alt="图片-1665405650443"
+                 ><br><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.jsdelivr.net/gh/R3damancy1/blog-pic/202404161657336.png"
+                        alt="图片-1665405656120"
+                 ></p>
+<p>得到flag</p>
+<p>正常情况下我们用dirsearch就可以扫出来，不过buu这里不支持</p>
+<h1 id="4-NotPHP"><a href="#4-NotPHP" class="headerlink" title="4.NotPHP"></a>4.NotPHP</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line"><span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;data&#x27;</span>]) == <span class="string">&quot;Welcome to CTF&quot;</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="title function_ invoke__">md5</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;key1&#x27;</span>]) === <span class="title function_ invoke__">md5</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;key2&#x27;</span>]) &amp;&amp; <span class="variable">$_GET</span>[<span class="string">&#x27;key1&#x27;</span>] !== <span class="variable">$_GET</span>[<span class="string">&#x27;key2&#x27;</span>])&#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="title function_ invoke__">is_numeric</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;num&#x27;</span>]) &amp;&amp; <span class="title function_ invoke__">intval</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;num&#x27;</span>]) == <span class="number">2077</span>)&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;Hack Me&quot;</span>;</span><br><span class="line">            <span class="keyword">eval</span>(<span class="string">&quot;#&quot;</span>.<span class="variable">$_GET</span>[<span class="string">&#x27;cmd&#x27;</span>]);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">&quot;Number error!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">&quot;Wrong Key!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">die</span>(<span class="string">&quot;Pass it!&quot;</span>);</span><br><span class="line">&#125; Pass it!</span><br></pre></td></tr></table></figure>
+
+<p>是一道php代码审计题目一共有四关</p>
+<p>第一关</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;data&#x27;</span>]) == <span class="string">&quot;Welcome to CTF&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这里给出相关知识点<a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45290991/article/details/113852174" >file_get_contents相关知识点<i class="fas fa-external-link-alt"></i></a></p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://www.cnblogs.com/linfangnan/p/13535097.html" >php伪协议<i class="fas fa-external-link-alt"></i></a></p>
+<p>这里我们用data协议写入</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?data=data:<span class="comment">//text/plain,Welcome to CTF</span></span><br></pre></td></tr></table></figure>
+
+<p>接着第二关</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">要求我们<span class="keyword">if</span>(<span class="title function_ invoke__">md5</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;key1&#x27;</span>]) === <span class="title function_ invoke__">md5</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;key2&#x27;</span>]) &amp;&amp; <span class="variable">$_GET</span>[<span class="string">&#x27;key1&#x27;</span>] !== <span class="variable">$_GET</span>[<span class="string">&#x27;key2&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
+<p>这里要求key1和key2的md5值相同但key1和key2不相等，乍一看觉得很奇怪，但其实md5可以绕过</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://bbs.huaweicloud.com/blogs/319030#:~:text=%E6%95%B0%E7%BB%84%E7%BB%95%E8%BF%87%20md5%E4%B8%8D%E8%83%BD%E5%8A%A0%E5%AF%86%E6%95%B0%E7%BB%84%2C%E4%BC%A0%E5%85%A5%E6%95%B0%E7%BB%84%E4%BC%9A%E6%8A%A5%E9%94%99%2C%E4%BD%86%E4%BC%9A%E7%BB%A7%E7%BB%AD%E6%89%A7%E8%A1%8C%E5%B9%B6%E4%B8%94%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%9C%E4%B8%BAnull%20%E6%AF%94%E5%A6%82%E5%B0%86%E4%B8%A4%E4%B8%AA%E6%95%B0%E7%BB%84%E7%9A%84md5%E5%80%BC%E8%BF%9B%E8%A1%8C%E6%AF%94%E8%BE%83,md5%28a%5B%5D%3D1%29%20%3D%3D%3D%20md5%28b%5B%5D%3D1%29%20%E7%94%B1%E4%BA%8Emd5%E5%87%BD%E6%95%B0%E6%97%A0%E6%B3%95%E5%A4%84%E7%90%86%E6%95%B0%E7%BB%84%2C%E4%BC%9A%E8%BF%94%E5%9B%9Enull%2C%E6%89%80%E4%BB%A5md5%E5%8A%A0%E5%AF%86%E5%90%8E%E7%9A%84%E7%BB%93%E6%9E%9C%E6%98%AF%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%A0%B7" >md5绕过<i class="fas fa-external-link-alt"></i></a></p>
+<p>当我们让key1和key2为数组的时候，md5加密后，结果均为0，则0&#x3D;&#x3D;&#x3D;0成立</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">key1[]=<span class="number">1</span>&amp;key2[]=<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>第三关</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="title function_ invoke__">is_numeric</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;num&#x27;</span>]) &amp;&amp; <span class="title function_ invoke__">intval</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;num&#x27;</span>]) == <span class="number">2077</span>)</span><br></pre></td></tr></table></figure>
+
+<p>is_numeric函数用来判断是否为数字</p>
+<p>intval() 函数用于获取变量的整数值。</p>
+<p>这里我们需要让num不是数字但让num&#x3D;2077，这里需要注意这里用到的是&#x3D;&#x3D;</p>
+<p>这是弱类型比较，则我们传入num&#x3D;2077a</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">num=<span class="number">2077</span>a</span><br></pre></td></tr></table></figure>
+
+<p>intval(2077a)&#x3D;2077可以在自己实验一下</p>
+<p>第四关</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">eval</span>(<span class="string">&quot;#&quot;</span>.<span class="variable">$_GET</span>[<span class="string">&#x27;cmd&#x27;</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>简单的rce，难点在于这个#注释</p>
+<p>有两种绕过方式</p>
+<p>1.?&gt;让前面闭合</p>
+<p>2.%0a用换行来绕过</p>
+<p>经测试发现空格被过滤 我这利用%20绕过，还有许多绕过方式，自行搜索</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;cmd=%<span class="number">0</span>asystem(<span class="string">&#x27;cat%20/flag&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;cmd=<span class="meta">?&gt;</span><span class="meta">&lt;?</span><span class="title function_ invoke__">system</span>(<span class="string">&#x27;cat%20/flag&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>得到flag{cd5e5ad9-1861-4bda-bcd5-bc729f7f953c}</p>
+<h1 id="5-Word-For-You"><a href="#5-Word-For-You" class="headerlink" title="5.Word-For-You"></a>5.Word-For-You</h1><p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.jsdelivr.net/gh/R3damancy1/blog-pic/202404161657645.png"
+                        alt="图片-1665405676352"
+                 ></p>
+<p>看着像sql注入猜一波万能密码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1&#x27; or 1=1#</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.jsdelivr.net/gh/R3damancy1/blog-pic/202404161657484.png"
+                        alt="图片-1665405683499"
+                 ></p>
+<p>直接出，这里给一个sql注入学习链接</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://blog.csdn.net/yujia_666/article/details/90296495?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166429318116782427488623%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166429318116782427488623&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-90296495-null-null.142%5Ev50%5Epc_rank_34_1,201%5Ev3%5Eadd_ask&utm_term=sql%E6%B3%A8%E5%85%A5&spm=1018.2226.3001.4187" >sql注入<i class="fas fa-external-link-alt"></i></a></p>
+<br/>
+
+<br/>
+
+<p>第一周做完了，题目还算比较简单，这段时间充实下自己吧</p>
+
+                </div>
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                NewStarCTF WEEK1 WEB
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2022/10/07/NewStarCTF WEEK1 WEB/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">P1taya</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2022-10-07 21:54</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+                        
+                            <i class="fa-brands fa-creative-commons"></i>
+                            <i class="fa-brands fa-creative-commons-by"></i>
+                            <i class="fa-brands fa-creative-commons-nc"></i>
+                            <i class="fa-brands fa-creative-commons-sa"></i>
+                        
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2022/10/10/NewStarCTF%20WEEK2%20WEB/"
+                                   title="NewStarCTF WEEK2 WEB"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">NewStarCTF WEEK2 WEB</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2022/05/17/SSRF%E5%88%9D%E6%8E%A2/"
+                                   title="SSRF初探"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">SSRF初探</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-HTTP"><span class="nav-text">1.HTTP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Head-Header"><span class="nav-text">2.Head?Header!</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E6%88%91%E7%9C%9F%E7%9A%84%E4%BC%9A%E8%B0%A2"><span class="nav-text">3.我真的会谢</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-NotPHP"><span class="nav-text">4.NotPHP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-Word-For-You"><span class="nav-text">5.Word-For-You</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box default">
+        
+            <div class="copyright-info info-item default">
+                &copy;&nbsp;<span>2022</span>&nbsp;-&nbsp;2024
+                
+                    &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">P1taya</a>
+                
+            </div>
+
+            <div class="theme-info info-item default">
+                由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+            </div>
+
+            
+
+            
+        
+
+        <div class="count-item info-item default">
+            
+                <span class="count-box border-box word">
+                    <span class="item-type border-box">总字数</span>
+                    <span class="item-value border-box word">79.9k</span>
+                </span>
+            
+
+            
+                <span class="count-box border-box uv">
+                    <span class="item-type border-box">访客数</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-box border-box pv">
+                    <span class="item-type border-box">访问量</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-toggle-theme-mode flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-HTTP"><span class="nav-text">1.HTTP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Head-Header"><span class="nav-text">2.Head?Header!</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E6%88%91%E7%9C%9F%E7%9A%84%E4%BC%9A%E8%B0%A2"><span class="nav-text">3.我真的会谢</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-NotPHP"><span class="nav-text">4.NotPHP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-Word-For-You"><span class="nav-text">5.Word-For-You</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+<!-- common -->
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/toggle-theme.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/code-block.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/libs/anime.min.js"></script>
+
+<!-- local-search -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/local-search.js"></script>
+
+
+<!-- lazyload -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/lazyload.js"></script>
+
+
+<div class="">
+    
+        <!-- post-helper -->
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/post/post-helper.js"></script>
+
+        <!-- toc -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/post/toc.js"></script>
+        
+
+        <!-- copyright-info -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/post/copyright-info.js"></script>
+        
+
+        <!-- share -->
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+
+
+    
+        
+    
+
+</body>
+</html>

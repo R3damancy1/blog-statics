@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="P1taya">
+    
+    <title>
+        
+            浅析JWT |
+        
+        P1taya
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/images/p1taya.jpg">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/brands.min.css">
+    
+        
+            
+                
+<link rel="stylesheet" href="/css/demo1.css">
+
+            
+        
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"P1taya","author":"P1taya","avatar":"/images/p1taya.jpg","logo":"/images/p1taya.jpg","favicon":"/images/p1taya.jpg"},"menu":{"home":"/ || fa-solid fa-home","archives":"/archives || fa-solid fa-box-archive","categories":"/categories || fa-solid fa-layer-group","links":"/links || fa-solid fa-link","about":"/about || fa-solid fa-user-graduate","photos":"/photos || fa-solid fa-image"},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"人后的苦尚且还能克服 || 人前的尊严却无比脆弱","hitokoto":false},"social_contact":{"enable":false,"links":{"github":null,"weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":null}},"scroll":{"progress_bar":false,"percent":false,"hide_header":true},"home":{"announcement":null,"category":true,"tag":true,"post_datetime":"created || fa-solid fa-home","post_datetime_format":"YYYY-MM-DD HH:mm:ss"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":false,"reward":{"enable":false,"img_link":null,"text":null}},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"obsidian"},"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"local_search":{"enable":true,"preload":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.21"},"waline":{"server_url":null,"reaction":false,"version":2},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":false},"lazyload":{"enable":true},"cdn":{"enable":true,"provider":"jsdelivr"},"pjax":{"enable":false},"footer":{"since":2022,"word_count":true},"inject":{"enable":true,"css":["/css/demo1.css"],"js":[null]},"root":"","source_data":{"links":[{"name":"小黄dog","link":"https://wuster.store/","avatar":"https://wuster.store/images/favicon.ico"},{"name":"🐶狗and猫","link":"https://fushuling.com/","avatar":"https://fushuling-1309926051.cos.ap-shanghai.myqcloud.com/avatar.jpg"}]},"version":"4.1.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/p1taya.jpg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               P1taya
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-home"></i>
+                                
+                                首页
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-box-archive"></i>
+                                
+                                归档
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-layer-group"></i>
+                                
+                                分类
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-link"></i>
+                                
+                                友链
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-user-graduate"></i>
+                                
+                                关于
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/photos"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-image"></i>
+                                
+                                相册
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/"
+                    >首页</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives"
+                    >归档</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories"
+                    >分类</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links"
+                    >友链</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about"
+                    >关于</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/photos"
+                    >相册</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        浅析JWT
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/p1taya.jpg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">P1taya</span>
+                                
+                                    <span class="author-badge">Lv4</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2022-01-13 22:27:22</span>
+            </span>
+
+            <span class="meta-info-item post-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="datetime" data-updated="Wed Apr 17 2024 16:43:00 GMT+0800">2024-04-17 16:43:00</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>3.1k 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>11 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body">
+                    
+
+                    <h1 id="浅析JWT"><a href="#浅析JWT" class="headerlink" title="浅析JWT"></a>浅析JWT</h1><h3 id="JWT简介"><a href="#JWT简介" class="headerlink" title="JWT简介"></a>JWT简介</h3><blockquote>
+<p>Json web token (JWT)，是为了在网络应用环境间传递声明而执行的一种基于JSON的开放标准（(RFC 7519)。该token被设计为紧凑且安全的，特别适用于分布式站点的单点登录（SSO）场景。JWT的声明一般被用来在身份提供者和服务提供者间传递被认证的用户身份信息，以便于从资源服务器获取资源，也可以增加一些额外的其它业务逻辑所必须的声明信息，该token也可直接被用于认证，也可被加密。</p>
+</blockquote>
+<p>我们在学习jwt的同时，也需要了解传统session认证</p>
+<h3 id="session认证"><a href="#session认证" class="headerlink" title="session认证"></a>session认证</h3><blockquote>
+<p>我们知道，http协议本身是一种无状态的协议，而这就意味着如果用户向我们的应用提供了用户名和密码来进行用户认证，那么下一次请求时，用户还要再一次进行用户认证才行，因为根据http协议，我们并不能知道是哪个用户发出的请求，所以为了让我们的应用能识别是哪个用户发出的请求，我们只能在服务器存储一份用户登录的信息，这份登录信息会在响应时传递给浏览器，告诉其保存为cookie，以便下次请求时发送给我们的应用，这样我们的应用就能识别请求来自哪个用户了，这就是传统的基于session认证。</p>
+</blockquote>
+<p>这种传统的<strong>session</strong>我们很难得到拓展，并且session相关的数据是保存在服务器中，随着用户数量的增加，服务器的载荷也就越大，这时候许多问题就暴露了出来</p>
+<ul>
+<li><strong>Session</strong>：每个用户经过我们的应用认证之后，我们的应用都要在服务端做一次记录，以方便用户下次请求的鉴别，通常而言session都是保存在内存中，而<strong>随着认证用户的增多，服务端的开销会明显增大。</strong></li>
+<li><strong>扩展性</strong>：用户认证之后，服务端做认证记录，如果认证的记录被保存在内存中的话，这意味着用户下次请求还必须要请求在这台服务器上，这样才能拿到授权的资源，这样在分布式的应用上，相应的限制了负载均衡器的能力。这也意味着限制了应用的扩展能力。</li>
+<li><strong>CSRF</strong>: 因为是 基于cookie 来进行用户识别的，<strong>cookie如果被截获，用户就会很容易受到跨站请求伪造的攻击。</strong></li>
+</ul>
+<h3 id="JWT与Session的差异"><a href="#JWT与Session的差异" class="headerlink" title="JWT与Session的差异"></a>JWT与Session的差异</h3><p><strong>相同点</strong>：<strong>它们都是存储用户信息；</strong></p>
+<p><strong>不同点</strong></p>
+<ul>
+<li><p><strong>Session是在服务器端的，而JWT是在客户端的。</strong></p>
+</li>
+<li><p><strong>Session方式存储用户信息的最大问题在于要占用大量服务器内存，增加服务器的开销。而JWT方式将用户状态分散到了客户端中，可以明显减轻服务端的内存压力。</strong></p>
+</li>
+<li><p><strong>Session的状态是存储在服务器端，客户端只有session id；而Token的状态是存储在客户端</strong></p>
+</li>
+</ul>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.jsdelivr.net/gh/R3damancy1/blog-pic/202404151430767.png"
+                        alt="图片-1684742759615"
+                 ></p>
+<h3 id="基于Token的身份认证-与-基于服务器的身份认证"><a href="#基于Token的身份认证-与-基于服务器的身份认证" class="headerlink" title="基于Token的身份认证 与 基于服务器的身份认证"></a>基于Token的身份认证 与 基于服务器的身份认证</h3><h4 id="基于服务器的身份认证"><a href="#基于服务器的身份认证" class="headerlink" title="基于服务器的身份认证"></a>基于服务器的身份认证</h4><p>在讨论基于Token的身份认证是如何工作的以及它的好处之前，我们先来看一下以前我们是怎么做的：</p>
+<blockquote>
+<p>HTTP协议是无状态的，也就是说，如果我们已经认证了一个用户，那么他下一次请求的时候，服务器不知道我是谁，我们必须再次认证</p>
+</blockquote>
+<p>传统的做法是将已经认证过的用户信息存储在服务器上，比如Session。用户下次请求的时候带着Session ID，然后服务器以此检查用户是否认证过。</p>
+<p>这种基于服务器的身份认证方式存在一些问题：</p>
+<ul>
+<li><strong>Sessions : 每次用户认证通过以后，服务器需要创建一条记录保存用户信息，通常是在内存中，随着认证通过的用户越来越多，服务器的在这里的开销就会越来越大。</strong></li>
+<li><strong>Scalability : 由于Session是在内存中的，这就带来一些扩展性的问题。</strong></li>
+<li><strong>CORS : 当我们想要扩展我们的应用，让我们的数据被多个移动设备使用时，我们必须考虑跨资源共享问题。当使用AJAX调用从另一个域名下获取资源时，我们可能会遇到禁止请求的问题。</strong></li>
+<li><strong>CSRF : 用户很容易受到CSRF攻击。</strong></li>
+</ul>
+<h4 id="用Token的好处"><a href="#用Token的好处" class="headerlink" title="用Token的好处"></a>用Token的好处</h4><ul>
+<li><strong>无状态和可扩展性：Tokens存储在客户端。完全无状态，可扩展。我们的负载均衡器可以将用户传递到任意服务器，因为在任何地方都没有状态或会话信息。</strong></li>
+<li><strong>安全：Token不是Cookie。（The token, not a  cookie.）每次请求的时候Token都会被发送。而且，由于没有Cookie被发送，还有助于防止CSRF攻击。即使在你的实现中将token存储到客户端的Cookie中，这个Cookie也只是一种存储机制，而非身份认证机制。没有基于会话的信息可以操作，因为我们没有会话!</strong></li>
+<li><strong>token在一段时间以后会过期，这个时候用户需要重新登录。这有助于我们保持安全。还有一个概念叫token撤销，它允许我们根据相同的授权许可使特定的token甚至一组token无效。</strong></li>
+</ul>
+<h3 id="什么时候用JWT"><a href="#什么时候用JWT" class="headerlink" title="什么时候用JWT"></a>什么时候用JWT</h3><p>下列场景中使用JSON Web Token是很有用的：</p>
+<ul>
+<li><strong>Authorization</strong> (授权) : 这是使用JWT的最常见场景。一旦用户登录，后续每个请求都将包含JWT，允许用户访问该令牌允许的路由、服务和资源。单点登录是现在广泛使用的JWT的一个特性，因为它的开销很小，并且可以轻松地跨域使用。</li>
+<li><strong>Information Exchange</strong> (信息交换) : 对于安全的在各方之间传输信息而言，JSON Web  Tokens无疑是一种很好的方式。因为JWTs可以被签名，例如，用公钥&#x2F;私钥对，你可以确定发送人就是它们所说的那个人。另外，由于签名是使用头和有效负载计算的，您还可以验证内容没有被篡改。</li>
+</ul>
+<h3 id="JWT结构"><a href="#JWT结构" class="headerlink" title="JWT结构"></a>JWT结构</h3><p>JSON Web Token由三部分组成，它们之间用圆点(.)连接。这三部分分别是：</p>
+<ul>
+<li><strong>Header</strong></li>
+<li><strong>Payload</strong></li>
+<li><strong>Signature</strong></li>
+</ul>
+<p>下面具体来看看每个部分</p>
+<h4 id="Header（头部）"><a href="#Header（头部）" class="headerlink" title="Header（头部）"></a>Header（头部）</h4><p>jwt头部承载两部分信息</p>
+<ul>
+<li><strong>声明类型</strong>：类似于jwt</li>
+<li><strong>声明加密的算法</strong>：通常直接使用 HMAC SHA256。这的加密算法也就是签名算法。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &#x27;typ&#x27;: &#x27;JWT&#x27;,</span><br><span class="line">  &#x27;alg&#x27;: &#x27;HS256&#x27;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后将头部进行<strong>base64加密</strong>得到第一部分</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>可以将JWT中的alg算法修改为none：</strong></p>
+<p><strong>JWT支持将算法设定为“None”。如果“alg”字段设为“ None”，那么JWT的第三部分会被置空，这样任何token都是有效的。这样就可以伪造token进行随意访问。</strong></p>
+</blockquote>
+<h4 id="Payload（载荷）"><a href="#Payload（载荷）" class="headerlink" title="Payload（载荷）"></a>Payload（载荷）</h4><p>payload<strong>就是存放有效信息的地方</strong>，这些有效信息包含三个部分</p>
+<ul>
+<li><strong>registered</strong> 标准中注册的声明</li>
+<li><strong>public</strong> 公共的声明</li>
+<li><strong>private</strong> 私有的声明</li>
+</ul>
+<p><strong>标签中注册的声明</strong></p>
+<ul>
+<li><strong>iss: jwt签发者</strong></li>
+<li><strong>sub: jwt所面向的用户</strong></li>
+<li><strong>aud: 接收jwt的一方</strong></li>
+<li><strong>exp: jwt的过期时间，这个过期时间必须要大于签发时间</strong></li>
+<li><strong>nbf: 定义在什么时间之前，该jwt都是不可用的.</strong></li>
+<li><strong>iat: jwt的签发时间</strong></li>
+<li><strong>jti: jwt的唯一身份标识，主要用来作为一次性token，从而回避重放攻击。</strong></li>
+</ul>
+<p><strong>公共的声明</strong></p>
+<p>公共的声明可以添加任何的信息，一般添加<strong>用户的相关信息</strong>或<strong>其他业务需要的必要信息</strong>。但不建议添加敏感信息，因为该部分在客户端可解密。</p>
+<p><strong>私有的声明</strong></p>
+<p>私有声明<strong>是提供者和消费者所共同定义的声明</strong>，一般不建议存放敏感信息，因为base64是对称解密的，意味着该部分信息可以归类为明文信息。</p>
+<p>下面是一个自己定义的<strong>payload</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;sub&quot;: &quot;1234567890&quot;,</span><br><span class="line">  &quot;iss&quot;: &quot;http://localhost:8000/auth/login&quot;,</span><br><span class="line">  &quot;iat&quot;: 1451888119,</span><br><span class="line">  &quot;exp&quot;: 1454516119,</span><br><span class="line">  &quot;nbf&quot;: 1451888119,</span><br><span class="line">  &quot;name&quot;: &quot;John Doe&quot;,</span><br><span class="line">  &quot;admin&quot;: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将其base64加密得到jwt第二部分</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>注意，不要在JWT的payload或header中放置敏感信息，除非它们是加密的。</p>
+</blockquote>
+<h4 id="Signature（签证）"><a href="#Signature（签证）" class="headerlink" title="Signature（签证）"></a>Signature（签证）</h4><p>签证信息由<strong>3个部分组成</strong></p>
+<ul>
+<li><strong>header（base64加密后的）</strong></li>
+<li><strong>payload（base64加密后的）</strong></li>
+<li><strong>secret</strong></li>
+</ul>
+<p>这个部分需要base64加密后的header和base64加密后的payload使用<code>.</code>连接组成的字符串，然后通过header中声明的加密方式进行加盐<code>secret</code>组合加密，然后就构成了jwt的第三部分。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// javascript</span><br><span class="line">var encodedString = base64UrlEncode(header) + &#x27;.&#x27; + base64UrlEncode(payload);</span><br><span class="line"></span><br><span class="line">var signature = HMACSHA256(encodedString, &#x27;secret&#x27;); // TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HMACSHA256(base64UrlEncode(header) + &quot;.&quot; + base64UrlEncode(payload), secret)</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>注意：secret是保存在服务器端的，jwt的签发生成也是在服务器端的，secret就是用来进行jwt的签发和jwt的验证，所以，它就是你服务端的私钥，在任何场景都不应该流露出去。一旦客户端得知这个secret，那就意味着客户端是可以自我签发jwt了。</strong></p>
+</blockquote>
+<h3 id="JWT认证过程"><a href="#JWT认证过程" class="headerlink" title="JWT认证过程"></a>JWT认证过程</h3><p>客户端接受服务器的<strong>JWT</strong>将其存储在<strong>Cookie</strong>或loaclSrorage中。此后，客户端将在与服务器进行交互中都会带JWT。如果它存储在Cookie中，就可以自动发送，但不会跨域，因此一般是将它放在HTTP请求的**<u>Header Authorization</u><strong>字段中当跨域时，也可以将JWT被放置于</strong>POST**请求的数据主体中。</p>
+<p>服务器每次收到信息都会对它的前两部分进行加密，然后比对加密后的结果是否跟客户端传送过来的第三部分相同，如果相同则验证通过，否则失败。</p>
+<p>一般是在请求头里加入<code>Authorization</code>，并加上<code>Bearer</code>标注：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fetch(&#x27;api/user/1&#x27;, &#123;</span><br><span class="line">  headers: &#123;</span><br><span class="line">    &#x27;Authorization&#x27;: &#x27;Bearer &#x27; + token</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.jsdelivr.net/gh/R3damancy1/blog-pic/202404151431006.png"
+                        alt="图片-1684742819251"
+                 ></p>
+<p>JWT本身包含认证信息，因此一旦信息泄露，任何人都可以获得令牌的所有权限。为了减少盗用，JWT的有效期不宜设置太长。对于某些重要操作，用户在使用时应该每次都进行进行身份验证。为了减少盗用和窃取，JWT不建议使用HTTP协议来传输代码，而是使用加密的HTTPS协议进行传输。</p>
+<h3 id="JWT安全隐患"><a href="#JWT安全隐患" class="headerlink" title="JWT安全隐患"></a>JWT安全隐患</h3><ul>
+<li>修改算法为none</li>
+<li>修改算法从RS256到HS256</li>
+<li>信息泄露 <strong>密钥泄露</strong></li>
+<li>爆破密钥</li>
+</ul>
+<p>这里我们着重说一下<strong>jwt伪造</strong>，这个考点在ctf中经常出现</p>
+<h4 id="JWT伪造"><a href="#JWT伪造" class="headerlink" title="JWT伪造"></a>JWT伪造</h4><p>当我面拿到一串<strong>JWT</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6ImZhbHNlIn0.oe4qhTxvJB8nNAsFWJc7_m3UylVZzO3FwhkYuESAyUM</span><br></pre></td></tr></table></figure>
+
+<p>我们去在线解jwt网站encode <a class="link"   target="_blank" rel="noopener" href="https://jwt.io/" >https://jwt.io/<i class="fas fa-external-link-alt"></i></a></p>
+<p><img  
+                       lazyload
+                       alt="image"
+                       data-src="https://cdn.jsdelivr.net/gh/R3damancy1/blog-pic/202404151432089.png"
+                        alt="图片-1684742810710"
+                 ></p>
+<p><strong>所以，我们的目的就是把false改成true，而且要通过服务器的验证，这点很重要，并不是直接把false改成true就万事大吉了。因为服务器收到token后会对token的有效性进行验证。</strong></p>
+<p><strong>验证方法：首先服务端会产生一个key，然后以这个key作为密钥，使用第一部分选择的加密方式（这里就是HS256），对第一部分和第二部分拼接的结果进行加密，然后把加密结果放到第三部分。</strong></p>
+<p><strong>服务器每次收到信息都会对它的前两部分进行加密，然后比对加密后的结果是否跟客户端传送过来的第三部分相同，如果相同则验证通过，否则失败。</strong></p>
+<p><strong>因为加密算法我们已经知道了，我们只要再得到加密的key，我们就能伪造数据，并且通过服务器的检查</strong></p>
+<p>我们需要对<strong>secret</strong>进行爆破</p>
+<p>推荐工具  <a class="link"   target="_blank" rel="noopener" href="https://github.com/brendan-rius/c-jwt-cracker" >https://github.com/brendan-rius/c-jwt-cracker<i class="fas fa-external-link-alt"></i></a></p>
+<p><strong>破解出来的加密密钥key就是：54l7y</strong>，</p>
+<p><strong>现在我们可以任意构造我们想要的jwt</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6InRydWUifQ.hv55uOLPmX_C0Nx8qz-O2psgUq6V3EA0fgRqGFm5W6Q</span><br></pre></td></tr></table></figure>
+
+<p>构造成功</p>
+
+                </div>
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                浅析JWT
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2022/01/13/浅析JWT/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">P1taya</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2022-01-13 22:27</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+                        
+                            <i class="fa-brands fa-creative-commons"></i>
+                            <i class="fa-brands fa-creative-commons-by"></i>
+                            <i class="fa-brands fa-creative-commons-nc"></i>
+                            <i class="fa-brands fa-creative-commons-sa"></i>
+                        
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2022/03/10/web%E6%BC%8F%E6%B4%9E%E5%A4%8D%E4%B9%A0/"
+                                   title="web漏洞复习"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">web漏洞复习</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2022/01/01/hello-world/"
+                                   title="Hello World"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">Hello World</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%85%E6%9E%90JWT"><span class="nav-text">浅析JWT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JWT%E7%AE%80%E4%BB%8B"><span class="nav-text">JWT简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#session%E8%AE%A4%E8%AF%81"><span class="nav-text">session认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JWT%E4%B8%8ESession%E7%9A%84%E5%B7%AE%E5%BC%82"><span class="nav-text">JWT与Session的差异</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8EToken%E7%9A%84%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81-%E4%B8%8E-%E5%9F%BA%E4%BA%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81"><span class="nav-text">基于Token的身份认证 与 基于服务器的身份认证</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81"><span class="nav-text">基于服务器的身份认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8Token%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="nav-text">用Token的好处</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E7%94%A8JWT"><span class="nav-text">什么时候用JWT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JWT%E7%BB%93%E6%9E%84"><span class="nav-text">JWT结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Header%EF%BC%88%E5%A4%B4%E9%83%A8%EF%BC%89"><span class="nav-text">Header（头部）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Payload%EF%BC%88%E8%BD%BD%E8%8D%B7%EF%BC%89"><span class="nav-text">Payload（载荷）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Signature%EF%BC%88%E7%AD%BE%E8%AF%81%EF%BC%89"><span class="nav-text">Signature（签证）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JWT%E8%AE%A4%E8%AF%81%E8%BF%87%E7%A8%8B"><span class="nav-text">JWT认证过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JWT%E5%AE%89%E5%85%A8%E9%9A%90%E6%82%A3"><span class="nav-text">JWT安全隐患</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JWT%E4%BC%AA%E9%80%A0"><span class="nav-text">JWT伪造</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box default">
+        
+            <div class="copyright-info info-item default">
+                &copy;&nbsp;<span>2022</span>&nbsp;-&nbsp;2024
+                
+                    &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">P1taya</a>
+                
+            </div>
+
+            <div class="theme-info info-item default">
+                由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+            </div>
+
+            
+
+            
+        
+
+        <div class="count-item info-item default">
+            
+                <span class="count-box border-box word">
+                    <span class="item-type border-box">总字数</span>
+                    <span class="item-value border-box word">79.9k</span>
+                </span>
+            
+
+            
+                <span class="count-box border-box uv">
+                    <span class="item-type border-box">访客数</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-box border-box pv">
+                    <span class="item-type border-box">访问量</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-toggle-theme-mode flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%85%E6%9E%90JWT"><span class="nav-text">浅析JWT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JWT%E7%AE%80%E4%BB%8B"><span class="nav-text">JWT简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#session%E8%AE%A4%E8%AF%81"><span class="nav-text">session认证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JWT%E4%B8%8ESession%E7%9A%84%E5%B7%AE%E5%BC%82"><span class="nav-text">JWT与Session的差异</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8EToken%E7%9A%84%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81-%E4%B8%8E-%E5%9F%BA%E4%BA%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81"><span class="nav-text">基于Token的身份认证 与 基于服务器的身份认证</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81"><span class="nav-text">基于服务器的身份认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8Token%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="nav-text">用Token的好处</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E7%94%A8JWT"><span class="nav-text">什么时候用JWT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JWT%E7%BB%93%E6%9E%84"><span class="nav-text">JWT结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Header%EF%BC%88%E5%A4%B4%E9%83%A8%EF%BC%89"><span class="nav-text">Header（头部）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Payload%EF%BC%88%E8%BD%BD%E8%8D%B7%EF%BC%89"><span class="nav-text">Payload（载荷）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Signature%EF%BC%88%E7%AD%BE%E8%AF%81%EF%BC%89"><span class="nav-text">Signature（签证）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JWT%E8%AE%A4%E8%AF%81%E8%BF%87%E7%A8%8B"><span class="nav-text">JWT认证过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JWT%E5%AE%89%E5%85%A8%E9%9A%90%E6%82%A3"><span class="nav-text">JWT安全隐患</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JWT%E4%BC%AA%E9%80%A0"><span class="nav-text">JWT伪造</span></a></li></ol></li></ol></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+<!-- common -->
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/toggle-theme.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/code-block.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/libs/anime.min.js"></script>
+
+<!-- local-search -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/local-search.js"></script>
+
+
+<!-- lazyload -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/lazyload.js"></script>
+
+
+<div class="">
+    
+        <!-- post-helper -->
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/post/post-helper.js"></script>
+
+        <!-- toc -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/post/toc.js"></script>
+        
+
+        <!-- copyright-info -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/post/copyright-info.js"></script>
+        
+
+        <!-- share -->
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+
+
+    
+        
+    
+
+</body>
+</html>

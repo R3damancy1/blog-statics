@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="P1taya">
+    
+    <title>
+        
+            PHP / JAVA复习指南 |
+        
+        P1taya
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/images/p1taya.jpg">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/brands.min.css">
+    
+        
+            
+                
+<link rel="stylesheet" href="/css/demo1.css">
+
+            
+        
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"P1taya","author":"P1taya","avatar":"/images/p1taya.jpg","logo":"/images/p1taya.jpg","favicon":"/images/p1taya.jpg"},"menu":{"home":"/ || fa-solid fa-home","archives":"/archives || fa-solid fa-box-archive","categories":"/categories || fa-solid fa-layer-group","links":"/links || fa-solid fa-link","about":"/about || fa-solid fa-user-graduate","photos":"/photos || fa-solid fa-image"},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"人后的苦尚且还能克服 || 人前的尊严却无比脆弱","hitokoto":false},"social_contact":{"enable":false,"links":{"github":null,"weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":null}},"scroll":{"progress_bar":false,"percent":false,"hide_header":true},"home":{"announcement":null,"category":true,"tag":true,"post_datetime":"created || fa-solid fa-home","post_datetime_format":"YYYY-MM-DD HH:mm:ss"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":false,"reward":{"enable":false,"img_link":null,"text":null}},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"obsidian"},"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"local_search":{"enable":true,"preload":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.21"},"waline":{"server_url":null,"reaction":false,"version":2},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":false},"lazyload":{"enable":true},"cdn":{"enable":true,"provider":"jsdelivr"},"pjax":{"enable":false},"footer":{"since":2022,"word_count":true},"inject":{"enable":true,"css":["/css/demo1.css"],"js":[null]},"root":"","source_data":{"links":[{"name":"小黄dog","link":"https://wuster.store/","avatar":"https://wuster.store/images/favicon.ico"},{"name":"🐶狗and猫","link":"https://fushuling.com/","avatar":"https://fushuling-1309926051.cos.ap-shanghai.myqcloud.com/avatar.jpg"}]},"version":"4.1.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/p1taya.jpg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               P1taya
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-home"></i>
+                                
+                                首页
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-box-archive"></i>
+                                
+                                归档
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-layer-group"></i>
+                                
+                                分类
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-link"></i>
+                                
+                                友链
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-user-graduate"></i>
+                                
+                                关于
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/photos"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-image"></i>
+                                
+                                相册
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/"
+                    >首页</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives"
+                    >归档</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories"
+                    >分类</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links"
+                    >友链</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about"
+                    >关于</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/photos"
+                    >相册</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        PHP / JAVA复习指南
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/p1taya.jpg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">P1taya</span>
+                                
+                                    <span class="author-badge">Lv4</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2022-11-03 23:51:24</span>
+            </span>
+
+            <span class="meta-info-item post-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="datetime" data-updated="Wed Apr 17 2024 16:43:00 GMT+0800">2024-04-17 16:43:00</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>2.8k 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>11 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body">
+                    
+
+                    <h1 id="PHP-JAVA复习指南"><a href="#PHP-JAVA复习指南" class="headerlink" title="PHP &#x2F; JAVA复习指南"></a>PHP &#x2F; JAVA复习指南</h1><h2 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h2><h3 id="1-php-命令执行函数以及函数应用场景"><a href="#1-php-命令执行函数以及函数应用场景" class="headerlink" title="1.php 命令执行函数以及函数应用场景"></a>1.php 命令执行函数以及函数应用场景</h3><ul>
+<li><code>system()</code> 将字符串作为OS命令执行，自带输出功能。</li>
+<li><code>passthru()</code>将字符串作为OS命令执行，不需要输出执行结果，且输出全部的内容。</li>
+<li><code>exec()</code>将字符串作为OS命令执行，需要输出执行结果，且它只会输出最后一行的内容。</li>
+<li><code>shell_exec</code> 将字符串作为OS命令执行，需要输出执行结果，且输出全部的内容</li>
+<li><code>popen()/proc_open()</code>该函数也可以将字符串当作OS命令来执行，但是该函数返回的是文件指针而非命令执行结果。该函数有两个参数。需要用**<u>fread</u>**来读</li>
+<li><code>反引号 </code> [&#96;&#96;]反引号里面的代码也会被当作OS命令来执行</li>
+</ul>
+<h3 id="2-php伪协议以及各个伪协议的应用场景以及应用的条件是什么？需要php-ini中进行怎样的配置？"><a href="#2-php伪协议以及各个伪协议的应用场景以及应用的条件是什么？需要php-ini中进行怎样的配置？" class="headerlink" title="2.php伪协议以及各个伪协议的应用场景以及应用的条件是什么？需要php.ini中进行怎样的配置？"></a>2.php伪协议以及各个伪协议的应用场景以及应用的条件是什么？需要php.ini中进行怎样的配置？</h3><p>php封装协议又称为伪协议，主要分为以下几种：</p>
+<ul>
+<li><p><code>file://</code>  file:&#x2F;&#x2F; 用于访问本地文件系统它在双off的情况下也可以正常使用；allow_url_fopen ：off&#x2F;on allow_url_include：off&#x2F;on</p>
+</li>
+<li><p><code>php://filter</code> 读取源代码并进行base64编码输出，不然会直接当做php代码执行就看不到源代码内容了在双off的情况下也可以正常使用；</p>
+</li>
+<li><p><code>php://input</code> 可以访问请求的原始数据的只读流。即可以直接读取到POST上没有经过解析的原始数据allow_url_fopen ：off&#x2F;on</p>
+<p>allow_url_include：on</p>
+</li>
+<li><p><code>zip:// compress.bzip:// compress.zlib://</code>均属于压缩流，可以访问压缩文件中的子文件，更重要的是不需要指定后缀名。双off也能用</p>
+</li>
+<li><p><code>data://</code> 数据流封装器开始有效，主要用于数据流的读取，如果传入的数据是PHP代码就会执行代码。必须要双on才可以</p>
+</li>
+<li><p><code>phar:/</code>&#x2F; 反序列化有时会用到 与zip协议不同的是zip协议为绝对路径，而phar协议为相对路径</p>
+</li>
+</ul>
+<h3 id="3-代码执行函数"><a href="#3-代码执行函数" class="headerlink" title="3.代码执行函数"></a>3.代码执行函数</h3><ul>
+<li><p><code>preg_replace()</code> 在php 5.6及之前的版本，当第一个参数在 &#x2F;e 的修饰下，并且 magic_quotes_gpc&#x3D;Off 时，函数的第二个参数会被当做php代码执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">	preg_replace(&#x27;/&lt;php&gt;(.*?)&#x27; . $_GET[&#x27;reg&#x27;], &#x27;\\1&#x27; ,&#x27;&lt;php&gt;phpinfo()&lt;php&gt;&#x27;);</span><br><span class="line">	preg_replace(&#x27;/anything/e&#x27;, $_GET[&#x27;test&#x27;], &#x27;anything_test&#x27;);</span><br><span class="line">	preg_replace(&#x27;/&lt;php&gt;(.*?)&lt;\/php&gt;/e&#x27;, &#x27;\\1&#x27;, $_GET[&#x27;test&#x27;]);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>array_map()</code> 第一个参数是回调函数，第二参数是函数的参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $func=$_GET[&#x27;func&#x27;];</span><br><span class="line">    $cmd=$_POST[&#x27;cmd&#x27;];</span><br><span class="line">    $array[0]=$cmd;</span><br><span class="line">    $new_array=array_map($func,$array);</span><br><span class="line">    echo $new_array;</span><br><span class="line">?&gt;</span><br><span class="line">//    命令执行http://localhost/123.php?func=system   cmd=whoami</span><br><span class="line"> //   菜刀连接http://localhost/123.php?func=assert   密码：cmd</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p><code>assert()</code> 判断一个表达式是否成立，能够把字符组成的字符串，当作代码执行。</p>
+<blockquote>
+<p>assert函数是直接将传入的参数当成PHP代码直接，不需要以分号结尾（特别注意），有时加上分号不会显示结</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="4-php-中常见的文件读取-写入函数"><a href="#4-php-中常见的文件读取-写入函数" class="headerlink" title="4.php 中常见的文件读取&#x2F;写入函数"></a>4.php 中常见的文件读取&#x2F;写入函数</h3><p>共有9个文件读取函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">file_get_contents   // *</span><br><span class="line">fread</span><br><span class="line">fgets</span><br><span class="line">fgetss</span><br><span class="line">file</span><br><span class="line">parse_ini_file</span><br><span class="line">readfile    // *</span><br><span class="line">highlight_file  // *</span><br><span class="line">show_source // *</span><br></pre></td></tr></table></figure>
+
+<p>使用方法</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// file_get_contents</span></span><br><span class="line"><span class="keyword">print</span>(<span class="title function_ invoke__">sprintf</span>(<span class="string">&quot;%&#x27;-10s%-&#x27;-30s&quot;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;file_get_contents&#x27;</span>).PHP_EOL);</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">file_get_contents</span>(<span class="string">&#x27;flag.txt&#x27;</span>);</span><br><span class="line"><span class="keyword">echo</span> PHP_EOL;</span><br><span class="line"></span><br><span class="line"><span class="comment">// fopen fread</span></span><br><span class="line"><span class="keyword">print</span>(<span class="title function_ invoke__">sprintf</span>(<span class="string">&quot;%&#x27;-10s%-&#x27;-30s&quot;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;fopen fread&#x27;</span>).PHP_EOL);</span><br><span class="line"><span class="variable">$file</span> = <span class="title function_ invoke__">fopen</span>(<span class="string">&quot;flag.txt&quot;</span>,<span class="string">&quot;rb&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">fread</span>(<span class="variable">$file</span>,<span class="number">1024</span>);     <span class="comment">// 参数为 resource 类型</span></span><br><span class="line"><span class="title function_ invoke__">fclose</span>(<span class="variable">$file</span>);</span><br><span class="line"><span class="keyword">echo</span> PHP_EOL;</span><br><span class="line"></span><br><span class="line"><span class="comment">// fopen fgets</span></span><br><span class="line"><span class="keyword">print</span>(<span class="title function_ invoke__">sprintf</span>(<span class="string">&quot;%&#x27;-10s%-&#x27;-30s&quot;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;fopen fgets&#x27;</span>).PHP_EOL);</span><br><span class="line"><span class="variable">$file</span> = <span class="title function_ invoke__">fopen</span>(<span class="string">&quot;flag.txt&quot;</span>,<span class="string">&quot;r&quot;</span>);      </span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">fgets</span>(<span class="variable">$file</span>, <span class="number">4096</span>);        <span class="comment">// 过滤掉了 HTML 和 PHP 标签</span></span><br><span class="line"><span class="title function_ invoke__">fclose</span>(<span class="variable">$file</span>);</span><br><span class="line"><span class="keyword">echo</span> PHP_EOL;</span><br><span class="line"></span><br><span class="line"><span class="comment">// fopen fgetss</span></span><br><span class="line"><span class="keyword">print</span>(<span class="title function_ invoke__">sprintf</span>(<span class="string">&quot;%&#x27;-10s%-&#x27;-30s&quot;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;fopen fgetss&#x27;</span>).PHP_EOL);</span><br><span class="line"><span class="variable">$file</span> = <span class="title function_ invoke__">fopen</span>(<span class="string">&quot;flag.txt&quot;</span>,<span class="string">&quot;r&quot;</span>);     </span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">fgetss</span>(<span class="variable">$file</span>, <span class="number">4096</span>);        <span class="comment">// 过滤掉了 HTML 和 PHP 标签</span></span><br><span class="line"><span class="title function_ invoke__">fclose</span>(<span class="variable">$file</span>);</span><br><span class="line"><span class="keyword">echo</span> PHP_EOL;</span><br><span class="line"></span><br><span class="line"><span class="comment">// readfile</span></span><br><span class="line"><span class="keyword">print</span>(<span class="title function_ invoke__">sprintf</span>(<span class="string">&quot;%&#x27;-10s%-&#x27;-30s&quot;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;readfile&#x27;</span>).PHP_EOL);</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">readfile</span>(<span class="string">&quot;flag.txt&quot;</span>);      <span class="comment">// 看到不仅输出了所有内容，而且还输出了总共长度</span></span><br><span class="line"><span class="keyword">echo</span> PHP_EOL;</span><br><span class="line"></span><br><span class="line"><span class="comment">// file</span></span><br><span class="line"><span class="keyword">print</span>(<span class="title function_ invoke__">sprintf</span>(<span class="string">&quot;%&#x27;-10s%-&#x27;-30s&quot;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;file&#x27;</span>).PHP_EOL);</span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="title function_ invoke__">file</span>(<span class="string">&#x27;flag.txt&#x27;</span>));      <span class="comment">// 读取结果为数组，所以需要用 print_r 或 var_dump </span></span><br><span class="line"><span class="keyword">echo</span> PHP_EOL;</span><br><span class="line"></span><br><span class="line"><span class="comment">// parse_ini_file</span></span><br><span class="line"><span class="keyword">print</span>(<span class="title function_ invoke__">sprintf</span>(<span class="string">&quot;%&#x27;-10s%-&#x27;-30s&quot;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;parse_ini_file&#x27;</span>).PHP_EOL);</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">parse_ini_file</span>(<span class="string">&quot;flag.txt&quot;</span>);        <span class="comment">// 只能读取 ini 配置文件</span></span><br><span class="line"><span class="keyword">echo</span> PHP_EOL;</span><br><span class="line"></span><br><span class="line"><span class="comment">// show_source</span></span><br><span class="line"><span class="keyword">print</span>(<span class="title function_ invoke__">sprintf</span>(<span class="string">&quot;%&#x27;-10s%-&#x27;-30s&quot;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;show_source&#x27;</span>).PHP_EOL);</span><br><span class="line"><span class="title function_ invoke__">show_source</span>(<span class="string">&#x27;flag.txt&#x27;</span>);</span><br><span class="line"><span class="keyword">echo</span> PHP_EOL;</span><br><span class="line"></span><br><span class="line"><span class="comment">// highlight_file</span></span><br><span class="line"><span class="keyword">print</span>(<span class="title function_ invoke__">sprintf</span>(<span class="string">&quot;%&#x27;-10s%-&#x27;-30s&quot;</span>, <span class="string">&#x27;-&#x27;</span>, <span class="string">&#x27;highlight_file&#x27;</span>).PHP_EOL);</span><br><span class="line"><span class="title function_ invoke__">highlight_file</span>(<span class="string">&#x27;flag.txt&#x27;</span>);</span><br><span class="line"><span class="keyword">echo</span> PHP_EOL;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在PHP中使用 fweite() 和file_put_contents()函数向文件中写入数据。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$file</span> = <span class="title function_ invoke__">fopen</span>(<span class="string">&quot;test.txt&quot;</span>,<span class="string">&quot;w&quot;</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">fwrite</span>(<span class="variable">$file</span>,<span class="string">&quot;Hello World. Testing!&quot;</span>);</span><br><span class="line"><span class="title function_ invoke__">fclose</span>(<span class="variable">$file</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">file_put_contents</span>(<span class="string">&quot;test.txt&quot;</span>,<span class="string">&quot;Hello World. Testing!&quot;</span>);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="5-php-文件包含方法以及区别"><a href="#5-php-文件包含方法以及区别" class="headerlink" title="5.php 文件包含方法以及区别"></a>5.php 文件包含方法以及区别</h3><ul>
+<li><p><code>include</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php include &#x27;test.php&#x27;;?&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>include_once</code>  可以用于在脚本执行期间同一个文件有可能被包含超过一次的情况下，想确保它只被包含一次以避免函数重定义，变量重新赋值等问题</p>
+</li>
+<li><p><code>require</code> 与include方法基本一样</p>
+</li>
+<li><p><code>require_once</code>   require_once 语句时会先检查要包含的文件是不是已经在该程序中的其他地方被包含过，如果有，则不会再次重复包含该文件</p>
+</li>
+</ul>
+<p>区别</p>
+<blockquote>
+<p>1、include如果碰到错误，会给出提示，并继续向下执行；而require会终止程序执行。2、require_once和include_once中如果包含的文件已经被包含过，就不会再次包含，但include和require会。</p>
+</blockquote>
+<h3 id="6-php反序列化漏洞涉及函数"><a href="#6-php反序列化漏洞涉及函数" class="headerlink" title="6.php反序列化漏洞涉及函数"></a>6.php反序列化漏洞涉及函数</h3><ul>
+<li><p><code>serialize()</code>  序列化：把对象转化为二进制的字符串</p>
+</li>
+<li><p><code>unserialize()</code> 反序列化：把对象转化的二进制字符串再转化为对象</p>
+</li>
+<li><p>魔术方法 可能在某些情况下自动调用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">1.__construct()，类的构造函数</span><br><span class="line"></span><br><span class="line">2.__destruct()，类的析构函数</span><br><span class="line"></span><br><span class="line">3.__call()，在对象中调用一个不可访问方法时调用</span><br><span class="line"></span><br><span class="line">4.__callStatic()，用静态方式中调用一个不可访问方法时调用</span><br><span class="line"></span><br><span class="line">5.__get()，获得一个类的成员变量时调用</span><br><span class="line"></span><br><span class="line">6.__set()，设置一个类的成员变量时调用</span><br><span class="line"></span><br><span class="line">7.__isset()，当对不可访问属性调用isset()或empty()时调用</span><br><span class="line"></span><br><span class="line">8.__unset()，当对不可访问属性调用unset()时被调用。</span><br><span class="line"></span><br><span class="line">9.__sleep()，执行serialize()时，先会调用这个函数</span><br><span class="line"></span><br><span class="line">10.__wakeup()，执行unserialize()时，先会调用这个函数</span><br><span class="line"></span><br><span class="line">11.__toString()，类被当成字符串时的回应方法</span><br><span class="line"></span><br><span class="line">12.__invoke()，调用函数的方式调用一个对象时的回应方法</span><br><span class="line"></span><br><span class="line">13.__set_state()，调用var_export()导出类时，此静态方法会被调用。</span><br><span class="line"></span><br><span class="line">14.__clone()，当对象复制完成时调用</span><br><span class="line"></span><br><span class="line">15.__autoload()，尝试加载未定义的类</span><br><span class="line"></span><br><span class="line">16.__debugInfo()，打印所需调试信息</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="7-php-常见数组及引用"><a href="#7-php-常见数组及引用" class="headerlink" title="7.php 常见数组及引用"></a>7.php 常见数组及引用</h3><ul>
+<li><p><code>$_GET</code> 预定义的 $_GET 变量用于收集来自 method&#x3D;”get” 的表单中的值。</p>
+<p>从带有 GET 方法的表单发送的信息，对任何人都是可见的（会显示在浏览器的地址栏），并且对发送信息的量也有限制</p>
+</li>
+<li><p><code>$POST</code>预定义的 $_POST 变量用于收集来自 method&#x3D;”post” 的表单中的值。</p>
+<p>从带有 POST 方法的表单发送的信息，对任何人都是不可见的（不会显示在浏览器的地址栏），并且对发送信息的量也没有限制。</p>
+</li>
+<li><p><code>$_REQUEST</code> 既可以接收$_GET又可以接收$POST的值</p>
+</li>
+<li><p><code>$_FILES</code> 上传文件信息</p>
+</li>
+<li><p><code>$_COOKIE</code>用于获取 cookie 的值。</p>
+</li>
+<li><p><code>$SESSION</code>读取Session变量信息</p>
+</li>
+</ul>
+<h2 id="JAVA"><a href="#JAVA" class="headerlink" title="JAVA"></a>JAVA</h2><h3 id="1-Web服务器"><a href="#1-Web服务器" class="headerlink" title="1.Web服务器"></a>1.Web服务器</h3><p>常见的java EE web服务器</p>
+<p><strong>tomcat   jetty  resin</strong></p>
+<p>专业级java EE web 服务器</p>
+<p><strong>JBOSS   GlassFish   Weblogic   Webshpere</strong></p>
+<p>常见漏洞</p>
+<p><a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/399939177" >https://zhuanlan.zhihu.com/p/399939177<i class="fas fa-external-link-alt"></i></a></p>
+<h3 id="2-tomcat目录结构与功能"><a href="#2-tomcat目录结构与功能" class="headerlink" title="2.tomcat目录结构与功能"></a>2.tomcat目录结构与功能</h3><ul>
+<li><code>bin</code>:目录里主要是有启动和关闭应用服务器的bat批处理命令；</li>
+<li><code>conf</code>:这个目录里主要是支持配置Tomcat的文件。</li>
+<li><code>lib</code>:这里面是支持Tomcat启动的jar包，当然也可以放你自己项目需要的jar包。</li>
+<li><code>temp</code>:Tomcat运行过程中产生的临时文件。</li>
+<li><code>webapps</code>:这里就是你的项目了，你的项目可以是以文件或者jar包的方式存放在这个目录里。</li>
+<li><code>work</code>：work目录用来存放tomcat在运行时的编译后文件，例如JSP编译后的文件。</li>
+</ul>
+<h3 id="3-tomcat中web-xml-与-tomcat-user-xml-的作用"><a href="#3-tomcat中web-xml-与-tomcat-user-xml-的作用" class="headerlink" title="3.tomcat中web.xml 与 tomcat_user.xml 的作用"></a>3.tomcat中web.xml 与 tomcat_user.xml 的作用</h3><p><code>web.xml</code><br>Tomcat可以让用户通过将缺省的web.xml放入conf目录中来定义所有关系环境的web.xml的缺省值.建立一个新的关系环境时,Tomcat使用缺省的web.xml文件作为基本设置和应用项目特定的web.xml(放在应用项目的WEB-INF&#x2F;web.xml文件)来覆盖这些缺省值.是配置整个tomcat的jsp和servlet工作中的一些情况,比如我们配置list来不让我们输入一个目录的时候显示出那个目录下的jsp文件,而是显示404错误.还有在一些安全方面也可以做配置.</p>
+<p><code>tomcat-users.xml</code><br> 配置tomcat的用户了信息.可以到tomcat的开始页<a href="http://localhost:8080中点tomcat">http://localhost:8080中点tomcat</a> manager就会提示你要用户名和密码了,这里的用户名和密码就可以在这个xml中配置的</p>
+<h3 id="4-什么是jsp"><a href="#4-什么是jsp" class="headerlink" title="4.什么是jsp"></a>4.什么是jsp</h3><blockquote>
+<p>JSP全称Java Server Pages，是一种动态网页开发技术。它使用JSP标签在HTML网页中插入Java代码。标签通常以&lt;%开头以%&gt;结束。</p>
+<p>JSP是一种Java servlet，主要用于实现Java web应用程序的用户界面部分。网页开发者们通过结合HTML代码、XHTML代码、XML元素以及嵌入JSP操作和命令来编写JSP。</p>
+<p>JSP通过网页表单获取用户输入数据、访问数据库及其他数据源，然后动态地创建网页。</p>
+<p>JSP标签有多种功能，比如访问数据库、记录用户选择信息、访问JavaBeans组件等，还可以在不同的网页中传递控制信息和共享信息。</p>
+</blockquote>
+<h3 id="5-java-代码审计xss"><a href="#5-java-代码审计xss" class="headerlink" title="5.java 代码审计xss"></a>5.java 代码审计xss</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">前端反射型xss   (name参数可控) </span><br><span class="line">&lt;%</span><br><span class="line">String name = request.getParameter(&quot;name&quot;);</span><br><span class="line">out.println(name)</span><br><span class="line">%&gt;</span><br><span class="line">后端反射型 xss  (msg参数可控) </span><br><span class="line">public void Message(HttpServletRequest req, HttpServletResponse resp) &#123;</span><br><span class="line">	String message = req.getParameter(&quot;msg&quot;);</span><br><span class="line">try&#123;</span><br><span class="line">	resp.getWriter().print(message);</span><br><span class="line">&#125; catch (IOException e) &#123;</span><br><span class="line">	e. printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line">DOM xss只发生在客户端处理数据阶段，未经过滤被传入存在缺陷的JavaScript代码处理。</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    var pos = document.URL.indexOf(&quot;#&quot;)+1;</span><br><span class="line">    var name = document.URL.substring(pos, document.URL.length);</span><br><span class="line">    document.write(name);</span><br><span class="line">eval(&quot;var a = &quot; + name);</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">储存型xss 会通过JDBC与数据库交互</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="6-Java-常用的文件操作方法"><a href="#6-Java-常用的文件操作方法" class="headerlink" title="6.Java 常用的文件操作方法"></a>6.Java 常用的文件操作方法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Files.readAllBytes、Files.readAllLines</span><br><span class="line">FileInputStream</span><br><span class="line">FileOutputStream</span><br><span class="line">File</span><br><span class="line">FileUtils</span><br><span class="line">IOUtils</span><br><span class="line">BufferedReader</span><br><span class="line">ServletFileUpload</span><br><span class="line">MultipartFile</span><br><span class="line">CommonsMultipartFile</span><br><span class="line">PrintWriter</span><br><span class="line">ZipInputStream</span><br><span class="line">ZipEntry.getSize</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="7-文件上传关键函数"><a href="#7-文件上传关键函数" class="headerlink" title="7.文件上传关键函数"></a>7.文件上传关键函数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">DiskFileItemFactory@MultipartConfigMultipartFileFile</span><br><span class="line">Upload</span><br><span class="line">InputStream</span><br><span class="line">OutputStream</span><br><span class="line">write</span><br><span class="line">fileName</span><br><span class="line">filePath</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="8-servlet文件上传函数"><a href="#8-servlet文件上传函数" class="headerlink" title="8.servlet文件上传函数"></a>8.servlet文件上传函数</h3><blockquote>
+<p>servlet3之前<br>使用commons-fileupload、commons-io这两个jar包来处理文件上传</p>
+<p>servlet3之后<br>使用request.getParts()获取上传文件</p>
+</blockquote>
+<h3 id="9-java任意文件上传"><a href="#9-java任意文件上传" class="headerlink" title="9.java任意文件上传"></a>9.java任意文件上传</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">private boolean uploadWithAnnotation(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException &#123;</span><br><span class="line">    Part part = request.getPart(&quot;fileName&quot;);</span><br><span class="line">    if(part == null) &#123;</span><br><span class="line">      return false;</span><br><span class="line">    &#125;</span><br><span class="line">    String filename = UPLOAD_PATH + File.separator + part.getSubmittedFileName();</span><br><span class="line">    part.write(filename);</span><br><span class="line">    part.delete();</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="10-任意文件删除"><a href="#10-任意文件删除" class="headerlink" title="10.任意文件删除"></a>10.任意文件删除</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">String filename = request.getParameter(&quot;filename&quot;);</span><br><span class="line">File file = new File(filename);</span><br><span class="line">if(file != null &amp;&amp; file.exists() &amp;&amp; file.delete()) &#123;</span><br><span class="line">  	response.getWriter().println(&quot;delete success&quot;);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  	response.getWriter().println(&quot;delete failed&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+                </div>
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                PHP / JAVA复习指南
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2022/11/03/PHP  JAVA复习指南/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">P1taya</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2022-11-03 23:51</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+                        
+                            <i class="fa-brands fa-creative-commons"></i>
+                            <i class="fa-brands fa-creative-commons-by"></i>
+                            <i class="fa-brands fa-creative-commons-nc"></i>
+                            <i class="fa-brands fa-creative-commons-sa"></i>
+                        
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2022/11/13/thinkphp6%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%86%99%E5%85%A5%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%E8%BF%87%E7%A8%8B/"
+                                   title="thinkphp6任意文件写入"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">thinkphp6任意文件写入</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2022/11/02/DASCTF%20X%20GFCTF%202022%E5%8D%81%E6%9C%88%E6%8C%91%E6%88%98%E8%B5%9B%EF%BC%81/"
+                                   title="DASCTF X GFCTF 2022十月挑战赛"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">DASCTF X GFCTF 2022十月挑战赛</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-JAVA%E5%A4%8D%E4%B9%A0%E6%8C%87%E5%8D%97"><span class="nav-text">PHP &#x2F; JAVA复习指南</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP"><span class="nav-text">PHP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-php-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0%E4%BB%A5%E5%8F%8A%E5%87%BD%E6%95%B0%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">1.php 命令执行函数以及函数应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-php%E4%BC%AA%E5%8D%8F%E8%AE%AE%E4%BB%A5%E5%8F%8A%E5%90%84%E4%B8%AA%E4%BC%AA%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E4%BB%A5%E5%8F%8A%E5%BA%94%E7%94%A8%E7%9A%84%E6%9D%A1%E4%BB%B6%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E9%9C%80%E8%A6%81php-ini%E4%B8%AD%E8%BF%9B%E8%A1%8C%E6%80%8E%E6%A0%B7%E7%9A%84%E9%85%8D%E7%BD%AE%EF%BC%9F"><span class="nav-text">2.php伪协议以及各个伪协议的应用场景以及应用的条件是什么？需要php.ini中进行怎样的配置？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="nav-text">3.代码执行函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-php-%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96-%E5%86%99%E5%85%A5%E5%87%BD%E6%95%B0"><span class="nav-text">4.php 中常见的文件读取&#x2F;写入函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-php-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%96%B9%E6%B3%95%E4%BB%A5%E5%8F%8A%E5%8C%BA%E5%88%AB"><span class="nav-text">5.php 文件包含方法以及区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%B6%89%E5%8F%8A%E5%87%BD%E6%95%B0"><span class="nav-text">6.php反序列化漏洞涉及函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-php-%E5%B8%B8%E8%A7%81%E6%95%B0%E7%BB%84%E5%8F%8A%E5%BC%95%E7%94%A8"><span class="nav-text">7.php 常见数组及引用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JAVA"><span class="nav-text">JAVA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Web%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">1.Web服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-tomcat%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E4%B8%8E%E5%8A%9F%E8%83%BD"><span class="nav-text">2.tomcat目录结构与功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-tomcat%E4%B8%ADweb-xml-%E4%B8%8E-tomcat-user-xml-%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-text">3.tomcat中web.xml 与 tomcat_user.xml 的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E4%BB%80%E4%B9%88%E6%98%AFjsp"><span class="nav-text">4.什么是jsp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-java-%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1xss"><span class="nav-text">5.java 代码审计xss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Java-%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95"><span class="nav-text">6.Java 常用的文件操作方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%85%B3%E9%94%AE%E5%87%BD%E6%95%B0"><span class="nav-text">7.文件上传关键函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-servlet%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%87%BD%E6%95%B0"><span class="nav-text">8.servlet文件上传函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-java%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="nav-text">9.java任意文件上传</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4"><span class="nav-text">10.任意文件删除</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box default">
+        
+            <div class="copyright-info info-item default">
+                &copy;&nbsp;<span>2022</span>&nbsp;-&nbsp;2024
+                
+                    &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">P1taya</a>
+                
+            </div>
+
+            <div class="theme-info info-item default">
+                由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+            </div>
+
+            
+
+            
+        
+
+        <div class="count-item info-item default">
+            
+                <span class="count-box border-box word">
+                    <span class="item-type border-box">总字数</span>
+                    <span class="item-value border-box word">79.9k</span>
+                </span>
+            
+
+            
+                <span class="count-box border-box uv">
+                    <span class="item-type border-box">访客数</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-box border-box pv">
+                    <span class="item-type border-box">访问量</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-toggle-theme-mode flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PHP-JAVA%E5%A4%8D%E4%B9%A0%E6%8C%87%E5%8D%97"><span class="nav-text">PHP &#x2F; JAVA复习指南</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP"><span class="nav-text">PHP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-php-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0%E4%BB%A5%E5%8F%8A%E5%87%BD%E6%95%B0%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">1.php 命令执行函数以及函数应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-php%E4%BC%AA%E5%8D%8F%E8%AE%AE%E4%BB%A5%E5%8F%8A%E5%90%84%E4%B8%AA%E4%BC%AA%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E4%BB%A5%E5%8F%8A%E5%BA%94%E7%94%A8%E7%9A%84%E6%9D%A1%E4%BB%B6%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E9%9C%80%E8%A6%81php-ini%E4%B8%AD%E8%BF%9B%E8%A1%8C%E6%80%8E%E6%A0%B7%E7%9A%84%E9%85%8D%E7%BD%AE%EF%BC%9F"><span class="nav-text">2.php伪协议以及各个伪协议的应用场景以及应用的条件是什么？需要php.ini中进行怎样的配置？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0"><span class="nav-text">3.代码执行函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-php-%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96-%E5%86%99%E5%85%A5%E5%87%BD%E6%95%B0"><span class="nav-text">4.php 中常见的文件读取&#x2F;写入函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-php-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%96%B9%E6%B3%95%E4%BB%A5%E5%8F%8A%E5%8C%BA%E5%88%AB"><span class="nav-text">5.php 文件包含方法以及区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-php%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E6%B6%89%E5%8F%8A%E5%87%BD%E6%95%B0"><span class="nav-text">6.php反序列化漏洞涉及函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-php-%E5%B8%B8%E8%A7%81%E6%95%B0%E7%BB%84%E5%8F%8A%E5%BC%95%E7%94%A8"><span class="nav-text">7.php 常见数组及引用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JAVA"><span class="nav-text">JAVA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Web%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-text">1.Web服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-tomcat%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E4%B8%8E%E5%8A%9F%E8%83%BD"><span class="nav-text">2.tomcat目录结构与功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-tomcat%E4%B8%ADweb-xml-%E4%B8%8E-tomcat-user-xml-%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-text">3.tomcat中web.xml 与 tomcat_user.xml 的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E4%BB%80%E4%B9%88%E6%98%AFjsp"><span class="nav-text">4.什么是jsp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-java-%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1xss"><span class="nav-text">5.java 代码审计xss</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Java-%E5%B8%B8%E7%94%A8%E7%9A%84%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95"><span class="nav-text">6.Java 常用的文件操作方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%85%B3%E9%94%AE%E5%87%BD%E6%95%B0"><span class="nav-text">7.文件上传关键函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-servlet%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%87%BD%E6%95%B0"><span class="nav-text">8.servlet文件上传函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-java%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="nav-text">9.java任意文件上传</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4"><span class="nav-text">10.任意文件删除</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+<!-- common -->
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/toggle-theme.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/code-block.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/libs/anime.min.js"></script>
+
+<!-- local-search -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/local-search.js"></script>
+
+
+<!-- lazyload -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/lazyload.js"></script>
+
+
+<div class="">
+    
+        <!-- post-helper -->
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/post/post-helper.js"></script>
+
+        <!-- toc -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/post/toc.js"></script>
+        
+
+        <!-- copyright-info -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/post/copyright-info.js"></script>
+        
+
+        <!-- share -->
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+
+
+    
+        
+    
+
+</body>
+</html>

